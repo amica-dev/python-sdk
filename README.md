@@ -141,6 +141,7 @@ with amica_sdk.ApiClient(config) as api_client:
 
 ## Documentazione
 
+- **Registra la tua app**: crea un'applicazione e ottieni le credenziali OAuth sull'[App Store di Amica](https://apps.amica20.it).
 - **Endpoint e modelli**: la documentazione di dettaglio, una pagina per ogni risorsa, è nella cartella [`docs/`](docs/) di questo repository.
 - **API Reference interattiva**: prova gli endpoint dal browser su [customerws1.amica20.it/api/v3/docs](https://customerws1.amica20.it/api/v3/docs).
 - **Guide e autenticazione**: [amica.dev](https://amica.dev).
