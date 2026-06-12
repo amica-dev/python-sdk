@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "amica_python_sdk"
 version = "0.0.0-dev"
-description = "Customers API"
+description = "Amica Cloud API"
 authors = ["OpenAPI Generator Community <assistenza@gestionaleamica.com>"]
 license = "NoLicense"
 readme = "README.md"
 repository = "https://github.com/amica-dev/python-sdk"
-keywords = ["OpenAPI", "OpenAPI-Generator", "Customers API"]
+keywords = ["OpenAPI", "OpenAPI-Generator", "Amica Cloud API"]
 include = ["amica_python_sdk/py.typed"]
 
 [tool.poetry.dependencies]
