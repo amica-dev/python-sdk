@@ -5,7 +5,7 @@ description = "Customers API"
 authors = ["OpenAPI Generator Community <assistenza@gestionaleamica.com>"]
 license = "NoLicense"
 readme = "README.md"
-repository = "https://github.com/GIT_USER_ID/GIT_REPO_ID"
+repository = "https://github.com/amica-dev/python-sdk"
 keywords = ["OpenAPI", "OpenAPI-Generator", "Customers API"]
 include = ["amica_python_sdk/py.typed"]
 
