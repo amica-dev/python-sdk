@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.collega_documento_data import CollegaDocumentoData
+from amica_python_sdk.models.collega_documento_data import CollegaDocumentoData
 
 # TODO update the JSON string below
 json = "{}"

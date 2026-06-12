@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.documento_media_file import DocumentoMediaFile
+from amica_python_sdk.models.documento_media_file import DocumentoMediaFile
 
 # TODO update the JSON string below
 json = "{}"

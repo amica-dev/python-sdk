@@ -1,4 +1,4 @@
-# amica-sdk — SDK Python per la Customers API di Amica
+# amica-python-sdk — SDK Python per la Customers API di Amica
 
 La Customers API fornisce accesso programmatico a tutti i dati aziendali gestiti da [Amica 20](https://gestionaleamica.com). Supporta il ciclo completo di documenti, fatture, magazzino, contabilità e anagrafiche. Per guide e documentazione completa, visitare [amica.dev](https://amica.dev/).
 
@@ -115,23 +115,23 @@ Le entità contengono una proprietà `ConcurrencyToken`. Quando si aggiorna un'e
 Richiede Python 3.8+. Installa direttamente dal repository:
 
 ```bash
-pip install git+https://github.com/CIR2000/amica-python.git
+pip install git+https://github.com/amica-dev/python-sdk.git
 ```
 
 ## Per iniziare
 
 ```python
-import amica_sdk
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.rest import ApiException
 
-config = amica_sdk.Configuration(
+config = amica_python_sdk.Configuration(
     host="https://customerws1.amica20.it",
     access_token="IL_TUO_ACCESS_TOKEN",  # access token OAuth 2.0 ottenuto da Amica
 )
 
-with amica_sdk.ApiClient(config) as api_client:
+with amica_python_sdk.ApiClient(config) as api_client:
     # Elenco delle aziende disponibili per le credenziali in uso
-    aziende = amica_sdk.AziendaApi(api_client)
+    aziende = amica_python_sdk.AziendaApi(api_client)
     try:
         result = aziende.api_vversion_config_azienda_get("3")
         print(result)

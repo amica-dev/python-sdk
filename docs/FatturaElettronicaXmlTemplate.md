@@ -50,7 +50,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.fattura_elettronica_xml_template import FatturaElettronicaXmlTemplate
+from amica_python_sdk.models.fattura_elettronica_xml_template import FatturaElettronicaXmlTemplate
 
 # TODO update the JSON string below
 json = "{}"

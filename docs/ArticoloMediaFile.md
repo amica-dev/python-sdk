@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.articolo_media_file import ArticoloMediaFile
+from amica_python_sdk.models.articolo_media_file import ArticoloMediaFile
 
 # TODO update the JSON string below
 json = "{}"

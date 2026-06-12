@@ -38,7 +38,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.scheda_fornitore import SchedaFornitore
+from amica_python_sdk.models.scheda_fornitore import SchedaFornitore
 
 # TODO update the JSON string below
 json = "{}"

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.progressivo_invio import ProgressivoInvio
+from amica_python_sdk.models.progressivo_invio import ProgressivoInvio
 
 # TODO update the JSON string below
 json = "{}"

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.nazione import Nazione
+from amica_python_sdk.models.nazione import Nazione
 
 # TODO update the JSON string below
 json = "{}"

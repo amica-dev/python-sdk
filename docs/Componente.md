@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.componente import Componente
+from amica_python_sdk.models.componente import Componente
 
 # TODO update the JSON string below
 json = "{}"

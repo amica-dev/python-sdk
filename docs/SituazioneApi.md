@@ -1,4 +1,4 @@
-# amica_sdk.SituazioneApi
+# amica_python_sdk.SituazioneApi
 
 All URIs are relative to *http://localhost*
 
@@ -20,14 +20,14 @@ Restituisce i saldi mensili di credito e debito dell'azienda.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.credito_debito_mensile import CreditoDebitoMensile
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.credito_debito_mensile import CreditoDebitoMensile
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -37,7 +37,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -46,9 +46,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.SituazioneApi(api_client)
+    api_instance = amica_python_sdk.SituazioneApi(api_client)
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     version = 'version_example' # str | 
 
@@ -88,7 +88,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successo. Restituisce i dati dei saldi mensili. |  -  |
+**200** | Successo. Restituisce i dati dei saldi mensili. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -104,14 +105,14 @@ Restituisce il fatturato mensile dell'azienda.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fatturato_mensile import FatturatoMensile
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fatturato_mensile import FatturatoMensile
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -121,7 +122,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -130,9 +131,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.SituazioneApi(api_client)
+    api_instance = amica_python_sdk.SituazioneApi(api_client)
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     version = 'version_example' # str | 
 
@@ -172,7 +173,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successo. Restituisce i dati del fatturato mensile. |  -  |
+**200** | Successo. Restituisce i dati del fatturato mensile. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

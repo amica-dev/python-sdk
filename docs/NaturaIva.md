@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.natura_iva import NaturaIva
+from amica_python_sdk.models.natura_iva import NaturaIva
 
 # TODO update the JSON string below
 json = "{}"

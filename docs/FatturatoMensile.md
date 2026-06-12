@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.fatturato_mensile import FatturatoMensile
+from amica_python_sdk.models.fatturato_mensile import FatturatoMensile
 
 # TODO update the JSON string below
 json = "{}"

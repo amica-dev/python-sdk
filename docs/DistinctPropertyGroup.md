@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.distinct_property_group import DistinctPropertyGroup
+from amica_python_sdk.models.distinct_property_group import DistinctPropertyGroup
 
 # TODO update the JSON string below
 json = "{}"

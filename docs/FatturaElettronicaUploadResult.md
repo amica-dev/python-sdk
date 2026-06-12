@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.fattura_elettronica_upload_result import FatturaElettronicaUploadResult
+from amica_python_sdk.models.fattura_elettronica_upload_result import FatturaElettronicaUploadResult
 
 # TODO update the JSON string below
 json = "{}"

@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.scadenza import Scadenza
+from amica_python_sdk.models.scadenza import Scadenza
 
 # TODO update the JSON string below
 json = "{}"

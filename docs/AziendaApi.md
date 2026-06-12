@@ -1,4 +1,4 @@
-# amica_sdk.AziendaApi
+# amica_python_sdk.AziendaApi
 
 All URIs are relative to *http://localhost*
 
@@ -22,14 +22,14 @@ Restituisce una lista di elementi.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.azienda import Azienda
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.azienda import Azienda
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -39,7 +39,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -48,9 +48,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.AziendaApi(api_client)
+    api_instance = amica_python_sdk.AziendaApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda. (optional)
     skip = 100 # int | Numero di elementi da escludere dall'inizio del risultato. Combinato con `Take`, è utile per la paginazione. (optional)
@@ -102,8 +102,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successo. Restituisce la lista degli elementi corrispondenti ai criteri di ricerca. |  -  |
-**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  -  |
+**200** | Successo. Restituisce la lista degli elementi corrispondenti ai criteri di ricerca. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -119,14 +120,14 @@ Restituisce un elemento.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.azienda import Azienda
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.azienda import Azienda
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -136,7 +137,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -145,9 +146,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.AziendaApi(api_client)
+    api_instance = amica_python_sdk.AziendaApi(api_client)
     version = 'version_example' # str | Versione API.
     id = 56 # int | ID dell'elemento da recuperare.
     company_id = 'company_id_example' # str | ID univoco dell'azienda. (optional)
@@ -191,9 +192,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successo. Restituisce l&#39;elemento richiesto. |  -  |
-**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  -  |
-**404** | Non trovato. L&#39;elemento non è stato trovato. |  -  |
+**200** | Successo. Restituisce l&#39;elemento richiesto. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**404** | Non trovato. L&#39;elemento non è stato trovato. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

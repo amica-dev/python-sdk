@@ -30,7 +30,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.movimento_merce_riga import MovimentoMerceRiga
+from amica_python_sdk.models.movimento_merce_riga import MovimentoMerceRiga
 
 # TODO update the JSON string below
 json = "{}"

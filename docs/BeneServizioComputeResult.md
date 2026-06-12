@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.bene_servizio_compute_result import BeneServizioComputeResult
+from amica_python_sdk.models.bene_servizio_compute_result import BeneServizioComputeResult
 
 # TODO update the JSON string below
 json = "{}"

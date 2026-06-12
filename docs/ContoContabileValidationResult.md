@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.conto_contabile_validation_result import ContoContabileValidationResult
+from amica_python_sdk.models.conto_contabile_validation_result import ContoContabileValidationResult
 
 # TODO update the JSON string below
 json = "{}"

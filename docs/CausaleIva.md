@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from amica_sdk.models.causale_iva import CausaleIva
+from amica_python_sdk.models.causale_iva import CausaleIva
 
 # TODO update the JSON string below
 json = "{}"

@@ -1,4 +1,4 @@
-# amica_sdk.FatturaElettronicaXmlApi
+# amica_python_sdk.FatturaElettronicaXmlApi
 
 All URIs are relative to *http://localhost*
 
@@ -40,14 +40,14 @@ Non è possibile scaricare più di 350 file alla volta.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_xml_get_archive_by_date_range_options import FatturaElettronicaXmlGetArchiveByDateRangeOptions
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_xml_get_archive_by_date_range_options import FatturaElettronicaXmlGetArchiveByDateRangeOptions
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -57,7 +57,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -66,12 +66,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
-    fattura_elettronica_xml_get_archive_by_date_range_options = amica_sdk.FatturaElettronicaXmlGetArchiveByDateRangeOptions() # FatturaElettronicaXmlGetArchiveByDateRangeOptions | Opzioni di download. (optional)
+    fattura_elettronica_xml_get_archive_by_date_range_options = amica_python_sdk.FatturaElettronicaXmlGetArchiveByDateRangeOptions() # FatturaElettronicaXmlGetArchiveByDateRangeOptions | Opzioni di download. (optional)
 
     try:
         # Scarica un archivio ZIP di fatture XML, filtrate per intervallo di date.
@@ -108,9 +108,10 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**204** | No Content |  -  |
-**400** | Bad Request |  -  |
+**200** | OK |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**204** | No Content |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -128,14 +129,14 @@ Non è possibile scaricare più di 350 file alla volta.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_xml_get_archive_by_file_name_options import FatturaElettronicaXmlGetArchiveByFileNameOptions
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_xml_get_archive_by_file_name_options import FatturaElettronicaXmlGetArchiveByFileNameOptions
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -145,7 +146,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -154,12 +155,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
-    fattura_elettronica_xml_get_archive_by_file_name_options = amica_sdk.FatturaElettronicaXmlGetArchiveByFileNameOptions() # FatturaElettronicaXmlGetArchiveByFileNameOptions | Opzioni di download. (optional)
+    fattura_elettronica_xml_get_archive_by_file_name_options = amica_python_sdk.FatturaElettronicaXmlGetArchiveByFileNameOptions() # FatturaElettronicaXmlGetArchiveByFileNameOptions | Opzioni di download. (optional)
 
     try:
         # Scarica un archivio ZIP di fatture XML, filtrate per nome file.
@@ -196,9 +197,10 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**204** | No Content |  -  |
-**400** | Bad Request |  -  |
+**200** | OK |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**204** | No Content |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -214,13 +216,13 @@ Elimina in blocco tutte le fatture XML dell'azienda.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -230,7 +232,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -239,9 +241,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     version = 'version_example' # str | 
 
@@ -279,8 +281,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | Successo. Tutte le fatture XML sono state eliminate. |  -  |
-**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  -  |
+**204** | Successo. Tutte le fatture XML sono state eliminate. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -296,13 +299,13 @@ Scarica tutte le fatture XML come archivio ZIP.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -312,7 +315,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -321,9 +324,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     version = 'version_example' # str | 
 
@@ -361,8 +364,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successo. Restituisce l&#39;archivio ZIP. |  -  |
-**404** | Non trovato. Nessun file disponibile. |  -  |
+**200** | Successo. Restituisce l&#39;archivio ZIP. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**404** | Non trovato. Nessun file disponibile. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -378,13 +382,13 @@ Carica in blocco fatture XML da un archivio ZIP.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -394,7 +398,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -403,9 +407,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     version = 'version_example' # str | 
     file = None # bytearray | Archivio ZIP contenente i file XML. (optional)
@@ -445,8 +449,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Creato. I file sono stati caricati con successo. |  -  |
-**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  -  |
+**201** | Creato. I file sono stati caricati con successo. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -464,15 +469,15 @@ Tutti i documenti devono riferirsi alla stessa <a href=\"#tag/Anagrafica\">Anagr
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_export_options import FatturaElettronicaExportOptions
-from amica_sdk.models.fattura_elettronica_export_result import FatturaElettronicaExportResult
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_export_options import FatturaElettronicaExportOptions
+from amica_python_sdk.models.fattura_elettronica_export_result import FatturaElettronicaExportResult
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -482,7 +487,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -491,13 +496,13 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     validation_override = True # bool | Se applicare eventualmente l'override della validazione. (optional)
-    fattura_elettronica_export_options = amica_sdk.FatturaElettronicaExportOptions() # FatturaElettronicaExportOptions | Opzioni di esportazione. (optional)
+    fattura_elettronica_export_options = amica_python_sdk.FatturaElettronicaExportOptions() # FatturaElettronicaExportOptions | Opzioni di esportazione. (optional)
 
     try:
         # Esporta uno o più documenti in una fattura XML.
@@ -537,9 +542,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**400** | Bad Request |  -  |
-**404** | Not Found |  -  |
+**200** | OK |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**404** | Not Found |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -555,14 +561,14 @@ Scarica i file allegati di una fattura XML.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.allegato_documento import AllegatoDocumento
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.allegato_documento import AllegatoDocumento
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -572,7 +578,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -581,9 +587,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     file_name = 'file_name_example' # str | Nome del file.
@@ -625,8 +631,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**404** | Not Found |  -  |
+**200** | OK |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**404** | Not Found |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -642,13 +649,13 @@ Recupera una fattura XML per nome file.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -658,7 +665,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -667,9 +674,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     file_name = 'file_name_example' # str | Nome del file.
@@ -709,9 +716,10 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**400** | Bad Request |  -  |
-**404** | Not Found |  -  |
+**200** | OK |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**404** | Not Found |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -729,14 +737,14 @@ Restituisce una lista di elementi.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_xml import FatturaElettronicaXml
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_xml import FatturaElettronicaXml
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -746,7 +754,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -755,9 +763,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     skip = 100 # int | Numero di elementi da escludere dall'inizio del risultato. Combinato con `Take`, è utile per la paginazione. (optional)
@@ -809,8 +817,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successo. Restituisce la lista degli elementi corrispondenti ai criteri di ricerca. |  -  |
-**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  -  |
+**200** | Successo. Restituisce la lista degli elementi corrispondenti ai criteri di ricerca. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -826,14 +835,14 @@ Elimina un elemento.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_xml import FatturaElettronicaXml
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_xml import FatturaElettronicaXml
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -843,7 +852,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -852,9 +861,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     id = 56 # int | ID dell'elemento da eliminare.
@@ -896,9 +905,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successo. Restituisce l&#39;elemento eliminato. |  -  |
-**404** | Non trovato. L&#39;elemento non è stato trovato. |  -  |
-**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  -  |
+**200** | Successo. Restituisce l&#39;elemento eliminato. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**404** | Non trovato. L&#39;elemento non è stato trovato. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -914,14 +924,14 @@ Restituisce un elemento.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_xml import FatturaElettronicaXml
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_xml import FatturaElettronicaXml
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -931,7 +941,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -940,9 +950,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     id = 56 # int | ID dell'elemento da recuperare.
@@ -986,9 +996,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successo. Restituisce l&#39;elemento richiesto. |  -  |
-**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  -  |
-**404** | Non trovato. L&#39;elemento non è stato trovato. |  -  |
+**200** | Successo. Restituisce l&#39;elemento richiesto. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**404** | Non trovato. L&#39;elemento non è stato trovato. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1004,14 +1015,14 @@ Aggiorna un elemento esistente.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_xml import FatturaElettronicaXml
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_xml import FatturaElettronicaXml
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -1021,7 +1032,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -1030,14 +1041,14 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     id = 56 # int | ID univoco dell'elemento da aggiornare.
     validation_override = True # bool | Se applicare eventualmente l'override della validazione. (optional)
-    fattura_elettronica_xml = amica_sdk.FatturaElettronicaXml() # FatturaElettronicaXml | Istanza dell'elemento da salvare. (optional)
+    fattura_elettronica_xml = amica_python_sdk.FatturaElettronicaXml() # FatturaElettronicaXml | Istanza dell'elemento da salvare. (optional)
 
     try:
         # Aggiorna un elemento esistente.
@@ -1078,10 +1089,11 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successo. Restituisce l&#39;elemento aggiornato con un nuovo valore di Amica.BaseEntity.ConcurrencyToken. |  -  |
-**422** | Conflitto. Restituisce il motivo del conflitto. |  -  |
-**404** | Non trovato. L&#39;elemento non è stato trovato. |  -  |
-**400** | Bad Request. Restituisce il motivo dell&#39;errore (di solito un problema di validazione). |  -  |
+**200** | Successo. Restituisce l&#39;elemento aggiornato con un nuovo valore di Amica.BaseEntity.ConcurrencyToken. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**422** | Conflitto. Restituisce il motivo del conflitto. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**404** | Non trovato. L&#39;elemento non è stato trovato. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request. Restituisce il motivo dell&#39;errore (di solito un problema di validazione). |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1099,14 +1111,14 @@ Viene creato un nuovo <a href=\"#tag/Documento\">Documento</a> corrispondente al
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_import_result import FatturaElettronicaImportResult
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_import_result import FatturaElettronicaImportResult
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -1116,7 +1128,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -1125,9 +1137,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     data_consegna_sdi = '2013-10-20T19:20:30+01:00' # datetime | Data di consegna del Sistema di Interscambio (SdI). (optional)
@@ -1173,8 +1185,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**400** | Bad Request |  -  |
+**200** | OK |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1190,14 +1203,14 @@ Restituisce una nuova istanza di un oggetto. Dove necessario, i valori delle pro
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_xml import FatturaElettronicaXml
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_xml import FatturaElettronicaXml
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -1207,7 +1220,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -1216,9 +1229,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
 
@@ -1258,8 +1271,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**400** | Bad Request |  -  |
+**200** | OK |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1275,13 +1289,13 @@ Associa una fattura XML a un documento esistente.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -1291,7 +1305,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -1300,9 +1314,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     file_name = 'file_name_example' # str | Nome del file. (optional)
@@ -1348,8 +1362,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**400** | Bad Request |  -  |
+**200** | OK |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1365,14 +1380,14 @@ Salva un nuovo elemento.
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_xml import FatturaElettronicaXml
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_xml import FatturaElettronicaXml
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -1382,7 +1397,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -1391,13 +1406,13 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     validation_override = True # bool | Se applicare eventualmente l'override della validazione. (optional)
-    fattura_elettronica_xml = amica_sdk.FatturaElettronicaXml() # FatturaElettronicaXml | Istanza dell'elemento da salvare. (optional)
+    fattura_elettronica_xml = amica_python_sdk.FatturaElettronicaXml() # FatturaElettronicaXml | Istanza dell'elemento da salvare. (optional)
 
     try:
         # Salva un nuovo elemento.
@@ -1437,9 +1452,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Creato. Restituisce l&#39;elemento salvato con il Amica.BaseEntity.ConcurrencyToken aggiornato. |  -  |
-**409** | Conflitto. Restituisce il motivo del conflitto. |  -  |
-**400** | Bad Request. Restituisce il motivo dell&#39;errore (di solito un problema di validazione). |  -  |
+**201** | Creato. Restituisce l&#39;elemento salvato con il Amica.BaseEntity.ConcurrencyToken aggiornato. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**409** | Conflitto. Restituisce il motivo del conflitto. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request. Restituisce il motivo dell&#39;errore (di solito un problema di validazione). |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1455,14 +1471,14 @@ Interroga il Sistema di Interscambio (SDI) e scarica gli esiti di invio delle fa
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_import_result import FatturaElettronicaImportResult
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_import_result import FatturaElettronicaImportResult
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -1472,7 +1488,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -1481,9 +1497,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
 
@@ -1523,8 +1539,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**400** | Bad Request |  -  |
+**200** | OK |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1542,14 +1559,14 @@ Il <a href=\"https://gestionaleamica.com/Software/ServizioInterscambioFatture\">
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_import_result import FatturaElettronicaImportResult
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_import_result import FatturaElettronicaImportResult
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -1559,7 +1576,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -1568,9 +1585,9 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
 
@@ -1610,8 +1627,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**400** | Bad Request |  -  |
+**200** | OK |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1629,15 +1647,15 @@ Il <a href=\"https://gestionaleamica.com/Software/ServizioInterscambioFatture\">
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_upload_options import FatturaElettronicaUploadOptions
-from amica_sdk.models.fattura_elettronica_upload_result import FatturaElettronicaUploadResult
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_upload_options import FatturaElettronicaUploadOptions
+from amica_python_sdk.models.fattura_elettronica_upload_result import FatturaElettronicaUploadResult
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -1647,7 +1665,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -1656,12 +1674,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
-    fattura_elettronica_upload_options = amica_sdk.FatturaElettronicaUploadOptions() # FatturaElettronicaUploadOptions | Opzioni di invio. (optional)
+    fattura_elettronica_upload_options = amica_python_sdk.FatturaElettronicaUploadOptions() # FatturaElettronicaUploadOptions | Opzioni di invio. (optional)
 
     try:
         # Invia una o più fatture al Sistema di Interscambio (SDI).
@@ -1700,9 +1718,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**400** | Bad Request |  -  |
-**404** | Not Found |  -  |
+**200** | OK |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**404** | Not Found |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1718,14 +1737,14 @@ Applica un foglio di stile CSS a una fattura XML esistente e restituisce il risu
 * OAuth Authentication (oauth2):
 
 ```python
-import amica_sdk
-from amica_sdk.models.fattura_elettronica_xml_style_sheet_data import FatturaElettronicaXmlStyleSheetData
-from amica_sdk.rest import ApiException
+import amica_python_sdk
+from amica_python_sdk.models.fattura_elettronica_xml_style_sheet_data import FatturaElettronicaXmlStyleSheetData
+from amica_python_sdk.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     host = "http://localhost"
 )
 
@@ -1735,7 +1754,7 @@ configuration = amica_sdk.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer
-configuration = amica_sdk.Configuration(
+configuration = amica_python_sdk.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
@@ -1744,12 +1763,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
-with amica_sdk.ApiClient(configuration) as api_client:
+with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = amica_sdk.FatturaElettronicaXmlApi(api_client)
+    api_instance = amica_python_sdk.FatturaElettronicaXmlApi(api_client)
     version = 'version_example' # str | Versione API.
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
-    fattura_elettronica_xml_style_sheet_data = amica_sdk.FatturaElettronicaXmlStyleSheetData() # FatturaElettronicaXmlStyleSheetData | Opzioni di corrispondenza e stile. (optional)
+    fattura_elettronica_xml_style_sheet_data = amica_python_sdk.FatturaElettronicaXmlStyleSheetData() # FatturaElettronicaXmlStyleSheetData | Opzioni di corrispondenza e stile. (optional)
 
     try:
         # Applica un foglio di stile CSS a una fattura XML esistente e restituisce il risultato.
@@ -1786,9 +1805,10 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
-**400** | Bad Request |  -  |
-**404** | Not Found |  -  |
+**200** | OK |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**404** | Not Found |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
