@@ -3,7 +3,7 @@
 """
     Amica Cloud API
 
-    L'Amica Cloud API fornisce accesso programmatico a tutti i dati aziendali gestiti da [Amica 20](https://gestionaleamica.com). Supporta il ciclo completo di documenti, fatture, magazzino, contabilità e anagrafiche. Per guide e documentazione completa, visitare [amica.dev](https://amica.dev/).  ## Autenticazione  Tutte le richieste API richiedono un token OAuth 2.0 Bearer valido, da includere nell'header `Authorization`:  ``` Authorization: Bearer <token> ```  ### Registra la tua app  Per integrare l'Amica Cloud API registra la tua applicazione sull'**App Store di Amica**. Al termine della registrazione ottieni una coppia di credenziali OAuth 2.0 — `client_id` e `client_secret` (il secret è mostrato **una sola volta**) — e scegli gli **scope** e il **flusso di autenticazione** desiderati.  ### Scegli il flusso  - **Authorization Code con PKCE** (consigliato per app che operano per conto di un utente Amica): l'utente autorizza la tua app tramite la pagina di consenso dell'identity provider; la tua app riceve un `code` da scambiare con un access token.    ```   GET  {identity-provider}/connect/authorize?response_type=code&client_id=<client_id>&redirect_uri=<redirect_uri>&scope=openid%20read%20write%20documenti&code_challenge=<challenge>&code_challenge_method=S256   POST {identity-provider}/connect/token        grant_type=authorization_code&code=<code>&code_verifier=<verifier>&client_id=<client_id>&client_secret=<client_secret>&redirect_uri=<redirect_uri>   ```  - **Client Credentials** (per integrazioni server-to-server, senza utente interattivo):    ```   POST {identity-provider}/connect/token   Content-Type: application/x-www-form-urlencoded    grant_type=client_credentials&client_id=<client_id>&client_secret=<client_secret>&scope=read write documenti contabilita   ```    > **Nota:** il flusso Client Credentials è disponibile solo per le **app private**, non per quelle pubblicate sul marketplace.  In entrambi i casi la risposta contiene l'`access_token` (JWT con `aud: amica-cloud`) da usare nelle chiamate successive finché non scade (`expires_in`), dopodiché va richiesto un nuovo token. Ogni token contiene uno o più **scope** che determinano le aree accessibili (vedi sotto). Dalla [API Reference](https://amica.dev) è possibile incollare un access token per provare gli endpoint direttamente dal browser.  ## Scope di autorizzazione  L'accesso agli endpoint è governato dagli scope presenti nel token OAuth:  | Scope | Descrizione | |-|-| | `comune` | Anagrafiche: contatti, indirizzi, nazioni, valute, modalità di pagamento, ecc. | | `magazzino` | Magazzino: articoli, listini, movimenti di magazzino, giacenze, distinte base. | | `contabilita` | Contabilità: registrazioni contabili, scadenze, castelletti IVA, fatture elettroniche XML. | | `documenti` | Documenti: fatture, note di credito, DDT, ordini, preventivi, proforma ed emissione. |  Una richiesta verso un endpoint non coperto dallo scope del token riceverà una risposta `403 Forbidden`.  ## Company ID  La maggior parte degli endpoint è relativa a una specifica azienda e segue il pattern:  ``` /api/v3/{companyId}/risorsa ```  Il `companyId` è l'identificativo univoco di ciascun database aziendale. Usare l'endpoint `GET /api/v3/config/Azienda` per ottenere l'elenco delle aziende disponibili.  ## Paginazione  Gli endpoint che restituiscono liste supportano la paginazione tramite query parameter:  | Parametro | Descrizione | |-|-| | `Skip` | Numero di elementi da saltare dall'inizio del set di risultati. | | `Take` | Numero di elementi da includere nella risposta. |  La risposta include due header:  | Header | Descrizione | |-|-| | `X-Read-TotalCount` | Numero totale di elementi che soddisfano il filtro corrente. | | `X-Read-Count` | Numero di elementi effettivamente restituiti nel body della risposta. |  ## Ordinamento e filtri  Gli endpoint lista accettano parametri aggiuntivi:  | Parametro | Descrizione | |-|-| | `Order` | Lista di proprietà per l'ordinamento, separate da virgola. Un segno meno (`-`) prima del nome indica ordine discendente. Es. `-RagioneSociale1,Citta`. | | `Filter` | Condizioni di ricerca: lista di espressioni separate da virgola, ciascuna formata da nome campo, operatore, valore ed eventuale connettore logico. Operatori: `$eq`, `$ne`, `$gt`, `$lt`, `$lte`, `$gte`, `$ct` (contiene), `$nct`, `$sw` (inizia con), `$ew` (finisce con). Connettori: `$and` (default, omissibile) e `$or`; le sotto-query si racchiudono tra `[]`. Es. `RagioneSociale1 $ct acme $or, Fido $gt 1000`. | | `SkipTotalCount` | Se `true`, l'header `X-Read-TotalCount` viene omesso dalla risposta: migliori prestazioni a scapito del conteggio totale. Default `false`. |  ## Espansione oggetti correlati  Gli endpoint singoli e lista supportano il parametro `Expand`. Quando fornito, gli oggetti correlati vengono inclusi inline nella risposta anziché restituiti come riferimenti. È possibile specificare espansioni multiple separate da virgola.  ## Gestione errori  L'API usa codici di stato HTTP standard e restituisce [RFC 7807](https://tools.ietf.org/html/rfc7807) Problem Details in caso di errore:  | Codice | Significato | |-|-| | `400` | Bad Request — validazione fallita o parametro obbligatorio mancante. | | `401` | Unauthorized — token mancante o scaduto. | | `403` | Forbidden — il token non possiede lo scope richiesto. | | `404` | Not Found — la risorsa richiesta non esiste. | | `409` | Conflict — conflitto di concorrenza. | | `422` | Unprocessable Entity — entità non processabile (es. token di concorrenza obsoleto). |  Alcune risposte `400` includono un campo `overridable` che indica se l'errore di validazione può essere ignorato impostando il parametro `validationOverride` a `true`.  ## Controllo della concorrenza  Le entità contengono una proprietà `ConcurrencyToken`. Quando si aggiorna un'entità tramite `PUT`, il token nel body della richiesta viene confrontato con il valore memorizzato. Se differiscono, viene restituito un `422 Unprocessable Entity`. Usare sempre l'ultimo token ricevuto da una risposta `GET` o `POST`. 
+    L'Amica Cloud API fornisce accesso programmatico a tutti i dati aziendali gestiti da [Amica 20](https://gestionaleamica.com). Supporta il ciclo completo di documenti, fatture, magazzino, contabilità e anagrafiche. Per guide e documentazione completa, visitare [amica.dev](https://amica.dev/).  ## Autenticazione  Tutte le richieste API richiedono un token OAuth 2.0 Bearer valido, da includere nell'header `Authorization`:  ``` Authorization: Bearer <token> ```  ### Registra la tua app  Per integrare l'Amica Cloud API registra la tua applicazione sull'[**App Store di Amica**](https://apps.amica20.it). Al termine della registrazione ottieni una coppia di credenziali OAuth 2.0 — `client_id` e `client_secret` (il secret è mostrato **una sola volta**) — e scegli gli **scope** e il **flusso di autenticazione** desiderati.  ### Scegli il flusso  La scelta dipende da **come** la tua applicazione si autentica:  - C'è un **utente** che può accedere via browser (web app, SPA, app mobile)? → **Authorization Code con PKCE**. - È un **servizio headless** (backend, batch, integrazione server-to-server) di una **singola azienda**, senza un utente che effettua il login? → **Client Credentials**.  #### Authorization Code con PKCE  Consigliato per le app che operano per conto di un utente Amica ed è l'**unico flusso disponibile per le app pubblicate sul marketplace**. Una sola registrazione serve un numero qualsiasi di aziende: ogni utente autorizza la tua app per la propria azienda tramite la pagina di consenso dell'identity provider, e il token riceve automaticamente il contesto di quell'azienda. La tua app riceve un `code` da scambiare con un access token.  ``` GET  {identity-provider}/connect/authorize?response_type=code&client_id=<client_id>&redirect_uri=<redirect_uri>&scope=openid%20read%20write%20documenti&code_challenge=<challenge>&code_challenge_method=S256 POST {identity-provider}/connect/token      grant_type=authorization_code&code=<code>&code_verifier=<verifier>&client_id=<client_id>&client_secret=<client_secret>&redirect_uri=<redirect_uri> ```  #### Client Credentials  Per integrazioni **server-to-server** senza utente interattivo. Disponibile solo per le **app private**, non per quelle pubblicate sul marketplace. Un'app Client Credentials è **legata a una singola azienda** — quella dell'utente che la registra — e il token ne riceve automaticamente il contesto. Per servire un'azienda diversa serve una registrazione separata; se devi distribuire la stessa app a più aziende usa invece **Authorization Code**.  ``` POST {identity-provider}/connect/token Content-Type: application/x-www-form-urlencoded  grant_type=client_credentials&client_id=<client_id>&client_secret=<client_secret>&scope=comune read write documenti ```  > **Importante:** non includere lo scope `openid` (né `profile`/`email`) in questo flusso. `openid` attiva OpenID Connect — richiede un utente che effettua il login e l'emissione di un ID token — cosa che un flusso server-to-server non prevede: la richiesta viene rifiutata con l'errore `Client cannot request OpenID scopes in client credentials flow`. Indica solo gli scope di risorsa (`comune`, `magazzino`, `documenti`, `contabilita`, ed eventualmente `read`/`write`).  In entrambi i casi la risposta contiene l'`access_token` (JWT con `aud: amica-cloud`) da usare nelle chiamate successive finché non scade (`expires_in`), dopodiché va richiesto un nuovo token. Ogni token contiene uno o più **scope** che determinano le aree accessibili (vedi sotto). Dalla [API Reference](https://amica.dev) è possibile incollare un access token per provare gli endpoint direttamente dal browser.  ## Scope di autorizzazione  L'accesso agli endpoint è governato dagli scope presenti nel token OAuth:  | Scope | Descrizione | |-|-| | `comune` | Anagrafiche: contatti, indirizzi, nazioni, valute, modalità di pagamento, ecc. | | `magazzino` | Magazzino: articoli, listini, movimenti di magazzino, giacenze, distinte base. | | `contabilita` | Contabilità: registrazioni contabili, scadenze, castelletti IVA, fatture elettroniche XML. | | `documenti` | Documenti: fatture, note di credito, DDT, ordini, preventivi, proforma ed emissione. |  Una richiesta verso un endpoint non coperto dallo scope del token riceverà una risposta `403 Forbidden`.  ## Company ID  La maggior parte degli endpoint è relativa a una specifica azienda e segue il pattern:  ``` /api/v3/{companyId}/risorsa ```  Il `companyId` è l'identificativo univoco di ciascun database aziendale. Usare l'endpoint `GET /api/v3/config/Azienda` per ottenere l'elenco delle aziende disponibili.  ## Paginazione  Gli endpoint che restituiscono liste supportano la paginazione tramite query parameter:  | Parametro | Descrizione | |-|-| | `Skip` | Numero di elementi da saltare dall'inizio del set di risultati. | | `Take` | Numero di elementi da includere nella risposta. |  La risposta include due header:  | Header | Descrizione | |-|-| | `X-Read-TotalCount` | Numero totale di elementi che soddisfano il filtro corrente. | | `X-Read-Count` | Numero di elementi effettivamente restituiti nel body della risposta. |  ## Ordinamento e filtri  Gli endpoint lista accettano parametri aggiuntivi:  | Parametro | Descrizione | |-|-| | `Order` | Lista di proprietà per l'ordinamento, separate da virgola. Un segno meno (`-`) prima del nome indica ordine discendente. Es. `-RagioneSociale1,Citta`. | | `Filter` | Condizioni di ricerca: lista di espressioni separate da virgola, ciascuna formata da nome campo, operatore, valore ed eventuale connettore logico. Operatori: `$eq`, `$ne`, `$gt`, `$lt`, `$lte`, `$gte`, `$ct` (contiene), `$nct`, `$sw` (inizia con), `$ew` (finisce con). Connettori: `$and` (default, omissibile) e `$or`; le sotto-query si racchiudono tra `[]`. Es. `RagioneSociale1 $ct acme $or, Fido $gt 1000`. | | `SkipTotalCount` | Se `true`, l'header `X-Read-TotalCount` viene omesso dalla risposta: migliori prestazioni a scapito del conteggio totale. Default `false`. |  ## Espansione oggetti correlati  Gli endpoint singoli e lista supportano il parametro `Expand`. Quando fornito, gli oggetti correlati vengono inclusi inline nella risposta anziché restituiti come riferimenti. È possibile specificare espansioni multiple separate da virgola.  ## Gestione errori  L'API usa codici di stato HTTP standard e restituisce [RFC 7807](https://tools.ietf.org/html/rfc7807) Problem Details in caso di errore:  | Codice | Significato | |-|-| | `400` | Bad Request — validazione fallita o parametro obbligatorio mancante. | | `401` | Unauthorized — token mancante o scaduto. | | `403` | Forbidden — il token non possiede lo scope richiesto. | | `404` | Not Found — la risorsa richiesta non esiste. | | `409` | Conflict — conflitto di concorrenza. | | `422` | Unprocessable Entity — entità non processabile (es. token di concorrenza obsoleto). |  Alcune risposte `400` includono un campo `overridable` che indica se l'errore di validazione può essere ignorato impostando il parametro `validationOverride` a `true`.  ## Controllo della concorrenza  Le entità contengono una proprietà `ConcurrencyToken`. Quando si aggiorna un'entità tramite `PUT`, il token nel body della richiesta viene confrontato con il valore memorizzato. Se differiscono, viene restituito un `422 Unprocessable Entity`. Usare sempre l'ultimo token ricevuto da una risposta `GET` o `POST`. 
 
     The version of the OpenAPI document: v3
     Contact: assistenza@gestionaleamica.com
@@ -55,6 +55,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml_get_archive_by_date_range_options: Annotated[Optional[FatturaElettronicaXmlGetArchiveByDateRangeOptions], Field(description="Opzioni di download.")] = None,
         _request_timeout: Union[
             None,
@@ -77,6 +78,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml_get_archive_by_date_range_options: Opzioni di download.
         :type fattura_elettronica_xml_get_archive_by_date_range_options: FatturaElettronicaXmlGetArchiveByDateRangeOptions
         :param _request_timeout: timeout setting for this request. If one
@@ -104,6 +107,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_archivebydaterange_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml_get_archive_by_date_range_options=fattura_elettronica_xml_get_archive_by_date_range_options,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -116,6 +120,8 @@ class FatturaElettronicaXmlApi:
             '204': None,
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -133,6 +139,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml_get_archive_by_date_range_options: Annotated[Optional[FatturaElettronicaXmlGetArchiveByDateRangeOptions], Field(description="Opzioni di download.")] = None,
         _request_timeout: Union[
             None,
@@ -155,6 +162,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml_get_archive_by_date_range_options: Opzioni di download.
         :type fattura_elettronica_xml_get_archive_by_date_range_options: FatturaElettronicaXmlGetArchiveByDateRangeOptions
         :param _request_timeout: timeout setting for this request. If one
@@ -182,6 +191,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_archivebydaterange_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml_get_archive_by_date_range_options=fattura_elettronica_xml_get_archive_by_date_range_options,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -194,6 +204,8 @@ class FatturaElettronicaXmlApi:
             '204': None,
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -211,6 +223,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml_get_archive_by_date_range_options: Annotated[Optional[FatturaElettronicaXmlGetArchiveByDateRangeOptions], Field(description="Opzioni di download.")] = None,
         _request_timeout: Union[
             None,
@@ -233,6 +246,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml_get_archive_by_date_range_options: Opzioni di download.
         :type fattura_elettronica_xml_get_archive_by_date_range_options: FatturaElettronicaXmlGetArchiveByDateRangeOptions
         :param _request_timeout: timeout setting for this request. If one
@@ -260,6 +275,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_archivebydaterange_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml_get_archive_by_date_range_options=fattura_elettronica_xml_get_archive_by_date_range_options,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -272,6 +288,8 @@ class FatturaElettronicaXmlApi:
             '204': None,
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -284,6 +302,7 @@ class FatturaElettronicaXmlApi:
         self,
         version,
         company_id,
+        idempotency_key,
         fattura_elettronica_xml_get_archive_by_date_range_options,
         _request_auth,
         _content_type,
@@ -312,6 +331,8 @@ class FatturaElettronicaXmlApi:
             _path_params['companyId'] = company_id
         # process the query parameters
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
         if fattura_elettronica_xml_get_archive_by_date_range_options is not None:
@@ -345,7 +366,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -372,6 +393,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml_get_archive_by_file_name_options: Annotated[Optional[FatturaElettronicaXmlGetArchiveByFileNameOptions], Field(description="Opzioni di download.")] = None,
         _request_timeout: Union[
             None,
@@ -394,6 +416,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml_get_archive_by_file_name_options: Opzioni di download.
         :type fattura_elettronica_xml_get_archive_by_file_name_options: FatturaElettronicaXmlGetArchiveByFileNameOptions
         :param _request_timeout: timeout setting for this request. If one
@@ -421,6 +445,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_archivebyfilename_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml_get_archive_by_file_name_options=fattura_elettronica_xml_get_archive_by_file_name_options,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -433,6 +458,8 @@ class FatturaElettronicaXmlApi:
             '204': None,
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -450,6 +477,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml_get_archive_by_file_name_options: Annotated[Optional[FatturaElettronicaXmlGetArchiveByFileNameOptions], Field(description="Opzioni di download.")] = None,
         _request_timeout: Union[
             None,
@@ -472,6 +500,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml_get_archive_by_file_name_options: Opzioni di download.
         :type fattura_elettronica_xml_get_archive_by_file_name_options: FatturaElettronicaXmlGetArchiveByFileNameOptions
         :param _request_timeout: timeout setting for this request. If one
@@ -499,6 +529,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_archivebyfilename_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml_get_archive_by_file_name_options=fattura_elettronica_xml_get_archive_by_file_name_options,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -511,6 +542,8 @@ class FatturaElettronicaXmlApi:
             '204': None,
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -528,6 +561,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml_get_archive_by_file_name_options: Annotated[Optional[FatturaElettronicaXmlGetArchiveByFileNameOptions], Field(description="Opzioni di download.")] = None,
         _request_timeout: Union[
             None,
@@ -550,6 +584,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml_get_archive_by_file_name_options: Opzioni di download.
         :type fattura_elettronica_xml_get_archive_by_file_name_options: FatturaElettronicaXmlGetArchiveByFileNameOptions
         :param _request_timeout: timeout setting for this request. If one
@@ -577,6 +613,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_archivebyfilename_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml_get_archive_by_file_name_options=fattura_elettronica_xml_get_archive_by_file_name_options,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -589,6 +626,8 @@ class FatturaElettronicaXmlApi:
             '204': None,
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -601,6 +640,7 @@ class FatturaElettronicaXmlApi:
         self,
         version,
         company_id,
+        idempotency_key,
         fattura_elettronica_xml_get_archive_by_file_name_options,
         _request_auth,
         _content_type,
@@ -629,6 +669,8 @@ class FatturaElettronicaXmlApi:
             _path_params['companyId'] = company_id
         # process the query parameters
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
         if fattura_elettronica_xml_get_archive_by_file_name_options is not None:
@@ -662,7 +704,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -945,7 +987,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -1226,7 +1268,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -1253,6 +1295,7 @@ class FatturaElettronicaXmlApi:
         self,
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
         version: StrictStr,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="Archivio ZIP contenente i file XML.")] = None,
         _request_timeout: Union[
             None,
@@ -1274,6 +1317,8 @@ class FatturaElettronicaXmlApi:
         :type company_id: str
         :param version: (required)
         :type version: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param file: Archivio ZIP contenente i file XML.
         :type file: bytearray
         :param _request_timeout: timeout setting for this request. If one
@@ -1301,6 +1346,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_bulk_post_serialize(
             company_id=company_id,
             version=version,
+            idempotency_key=idempotency_key,
             file=file,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1312,6 +1358,8 @@ class FatturaElettronicaXmlApi:
             '201': None,
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1329,6 +1377,7 @@ class FatturaElettronicaXmlApi:
         self,
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
         version: StrictStr,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="Archivio ZIP contenente i file XML.")] = None,
         _request_timeout: Union[
             None,
@@ -1350,6 +1399,8 @@ class FatturaElettronicaXmlApi:
         :type company_id: str
         :param version: (required)
         :type version: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param file: Archivio ZIP contenente i file XML.
         :type file: bytearray
         :param _request_timeout: timeout setting for this request. If one
@@ -1377,6 +1428,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_bulk_post_serialize(
             company_id=company_id,
             version=version,
+            idempotency_key=idempotency_key,
             file=file,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1388,6 +1440,8 @@ class FatturaElettronicaXmlApi:
             '201': None,
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1405,6 +1459,7 @@ class FatturaElettronicaXmlApi:
         self,
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
         version: StrictStr,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="Archivio ZIP contenente i file XML.")] = None,
         _request_timeout: Union[
             None,
@@ -1426,6 +1481,8 @@ class FatturaElettronicaXmlApi:
         :type company_id: str
         :param version: (required)
         :type version: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param file: Archivio ZIP contenente i file XML.
         :type file: bytearray
         :param _request_timeout: timeout setting for this request. If one
@@ -1453,6 +1510,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_bulk_post_serialize(
             company_id=company_id,
             version=version,
+            idempotency_key=idempotency_key,
             file=file,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1464,6 +1522,8 @@ class FatturaElettronicaXmlApi:
             '201': None,
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1476,6 +1536,7 @@ class FatturaElettronicaXmlApi:
         self,
         company_id,
         version,
+        idempotency_key,
         file,
         _request_auth,
         _content_type,
@@ -1504,6 +1565,8 @@ class FatturaElettronicaXmlApi:
             _path_params['version'] = version
         # process the query parameters
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         if file is not None:
             _files['file'] = file
@@ -1537,7 +1600,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -1565,6 +1628,7 @@ class FatturaElettronicaXmlApi:
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
         validation_override: Annotated[Optional[StrictBool], Field(description="Se applicare eventualmente l'override della validazione.")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_export_options: Annotated[Optional[FatturaElettronicaExportOptions], Field(description="Opzioni di esportazione.")] = None,
         _request_timeout: Union[
             None,
@@ -1589,6 +1653,8 @@ class FatturaElettronicaXmlApi:
         :type company_id: str
         :param validation_override: Se applicare eventualmente l'override della validazione.
         :type validation_override: bool
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_export_options: Opzioni di esportazione.
         :type fattura_elettronica_export_options: FatturaElettronicaExportOptions
         :param _request_timeout: timeout setting for this request. If one
@@ -1617,6 +1683,7 @@ class FatturaElettronicaXmlApi:
             version=version,
             company_id=company_id,
             validation_override=validation_override,
+            idempotency_key=idempotency_key,
             fattura_elettronica_export_options=fattura_elettronica_export_options,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1629,6 +1696,8 @@ class FatturaElettronicaXmlApi:
             '400': "ProblemDetails",
             '404': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1647,6 +1716,7 @@ class FatturaElettronicaXmlApi:
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
         validation_override: Annotated[Optional[StrictBool], Field(description="Se applicare eventualmente l'override della validazione.")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_export_options: Annotated[Optional[FatturaElettronicaExportOptions], Field(description="Opzioni di esportazione.")] = None,
         _request_timeout: Union[
             None,
@@ -1671,6 +1741,8 @@ class FatturaElettronicaXmlApi:
         :type company_id: str
         :param validation_override: Se applicare eventualmente l'override della validazione.
         :type validation_override: bool
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_export_options: Opzioni di esportazione.
         :type fattura_elettronica_export_options: FatturaElettronicaExportOptions
         :param _request_timeout: timeout setting for this request. If one
@@ -1699,6 +1771,7 @@ class FatturaElettronicaXmlApi:
             version=version,
             company_id=company_id,
             validation_override=validation_override,
+            idempotency_key=idempotency_key,
             fattura_elettronica_export_options=fattura_elettronica_export_options,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1711,6 +1784,8 @@ class FatturaElettronicaXmlApi:
             '400': "ProblemDetails",
             '404': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1729,6 +1804,7 @@ class FatturaElettronicaXmlApi:
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
         validation_override: Annotated[Optional[StrictBool], Field(description="Se applicare eventualmente l'override della validazione.")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_export_options: Annotated[Optional[FatturaElettronicaExportOptions], Field(description="Opzioni di esportazione.")] = None,
         _request_timeout: Union[
             None,
@@ -1753,6 +1829,8 @@ class FatturaElettronicaXmlApi:
         :type company_id: str
         :param validation_override: Se applicare eventualmente l'override della validazione.
         :type validation_override: bool
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_export_options: Opzioni di esportazione.
         :type fattura_elettronica_export_options: FatturaElettronicaExportOptions
         :param _request_timeout: timeout setting for this request. If one
@@ -1781,6 +1859,7 @@ class FatturaElettronicaXmlApi:
             version=version,
             company_id=company_id,
             validation_override=validation_override,
+            idempotency_key=idempotency_key,
             fattura_elettronica_export_options=fattura_elettronica_export_options,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1793,6 +1872,8 @@ class FatturaElettronicaXmlApi:
             '400': "ProblemDetails",
             '404': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1806,6 +1887,7 @@ class FatturaElettronicaXmlApi:
         version,
         company_id,
         validation_override,
+        idempotency_key,
         fattura_elettronica_export_options,
         _request_auth,
         _content_type,
@@ -1838,6 +1920,8 @@ class FatturaElettronicaXmlApi:
             _query_params.append(('validationOverride', validation_override))
             
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
         if fattura_elettronica_export_options is not None:
@@ -1871,7 +1955,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -2167,7 +2251,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -2466,7 +2550,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -2853,7 +2937,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -3152,7 +3236,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -3469,7 +3553,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -3498,6 +3582,7 @@ class FatturaElettronicaXmlApi:
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
         id: Annotated[StrictInt, Field(description="ID univoco dell'elemento da aggiornare.")],
         validation_override: Annotated[Optional[StrictBool], Field(description="Se applicare eventualmente l'override della validazione.")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml: Annotated[Optional[FatturaElettronicaXml], Field(description="Istanza dell'elemento da salvare.")] = None,
         _request_timeout: Union[
             None,
@@ -3523,6 +3608,8 @@ class FatturaElettronicaXmlApi:
         :type id: int
         :param validation_override: Se applicare eventualmente l'override della validazione.
         :type validation_override: bool
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml: Istanza dell'elemento da salvare.
         :type fattura_elettronica_xml: FatturaElettronicaXml
         :param _request_timeout: timeout setting for this request. If one
@@ -3552,6 +3639,7 @@ class FatturaElettronicaXmlApi:
             company_id=company_id,
             id=id,
             validation_override=validation_override,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml=fattura_elettronica_xml,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3565,6 +3653,7 @@ class FatturaElettronicaXmlApi:
             '404': "ProblemDetails",
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3584,6 +3673,7 @@ class FatturaElettronicaXmlApi:
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
         id: Annotated[StrictInt, Field(description="ID univoco dell'elemento da aggiornare.")],
         validation_override: Annotated[Optional[StrictBool], Field(description="Se applicare eventualmente l'override della validazione.")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml: Annotated[Optional[FatturaElettronicaXml], Field(description="Istanza dell'elemento da salvare.")] = None,
         _request_timeout: Union[
             None,
@@ -3609,6 +3699,8 @@ class FatturaElettronicaXmlApi:
         :type id: int
         :param validation_override: Se applicare eventualmente l'override della validazione.
         :type validation_override: bool
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml: Istanza dell'elemento da salvare.
         :type fattura_elettronica_xml: FatturaElettronicaXml
         :param _request_timeout: timeout setting for this request. If one
@@ -3638,6 +3730,7 @@ class FatturaElettronicaXmlApi:
             company_id=company_id,
             id=id,
             validation_override=validation_override,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml=fattura_elettronica_xml,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3651,6 +3744,7 @@ class FatturaElettronicaXmlApi:
             '404': "ProblemDetails",
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3670,6 +3764,7 @@ class FatturaElettronicaXmlApi:
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
         id: Annotated[StrictInt, Field(description="ID univoco dell'elemento da aggiornare.")],
         validation_override: Annotated[Optional[StrictBool], Field(description="Se applicare eventualmente l'override della validazione.")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml: Annotated[Optional[FatturaElettronicaXml], Field(description="Istanza dell'elemento da salvare.")] = None,
         _request_timeout: Union[
             None,
@@ -3695,6 +3790,8 @@ class FatturaElettronicaXmlApi:
         :type id: int
         :param validation_override: Se applicare eventualmente l'override della validazione.
         :type validation_override: bool
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml: Istanza dell'elemento da salvare.
         :type fattura_elettronica_xml: FatturaElettronicaXml
         :param _request_timeout: timeout setting for this request. If one
@@ -3724,6 +3821,7 @@ class FatturaElettronicaXmlApi:
             company_id=company_id,
             id=id,
             validation_override=validation_override,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml=fattura_elettronica_xml,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3737,6 +3835,7 @@ class FatturaElettronicaXmlApi:
             '404': "ProblemDetails",
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3751,6 +3850,7 @@ class FatturaElettronicaXmlApi:
         company_id,
         id,
         validation_override,
+        idempotency_key,
         fattura_elettronica_xml,
         _request_auth,
         _content_type,
@@ -3785,6 +3885,8 @@ class FatturaElettronicaXmlApi:
             _query_params.append(('validationOverride', validation_override))
             
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
         if fattura_elettronica_xml is not None:
@@ -3818,7 +3920,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -3845,6 +3947,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         data_consegna_sdi: Annotated[Optional[datetime], Field(description="Data di consegna del Sistema di Interscambio (SdI).")] = None,
         identificativo_sdi: Annotated[Optional[StrictStr], Field(description="Identificativo assegnato dal Sistema di Interscambio (SdI).")] = None,
         file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="Contenuto del file.")] = None,
@@ -3869,6 +3972,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param data_consegna_sdi: Data di consegna del Sistema di Interscambio (SdI).
         :type data_consegna_sdi: datetime
         :param identificativo_sdi: Identificativo assegnato dal Sistema di Interscambio (SdI).
@@ -3900,6 +4005,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_import_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             data_consegna_sdi=data_consegna_sdi,
             identificativo_sdi=identificativo_sdi,
             file=file,
@@ -3913,6 +4019,8 @@ class FatturaElettronicaXmlApi:
             '200': "List[FatturaElettronicaImportResult]",
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3930,6 +4038,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         data_consegna_sdi: Annotated[Optional[datetime], Field(description="Data di consegna del Sistema di Interscambio (SdI).")] = None,
         identificativo_sdi: Annotated[Optional[StrictStr], Field(description="Identificativo assegnato dal Sistema di Interscambio (SdI).")] = None,
         file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="Contenuto del file.")] = None,
@@ -3954,6 +4063,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param data_consegna_sdi: Data di consegna del Sistema di Interscambio (SdI).
         :type data_consegna_sdi: datetime
         :param identificativo_sdi: Identificativo assegnato dal Sistema di Interscambio (SdI).
@@ -3985,6 +4096,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_import_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             data_consegna_sdi=data_consegna_sdi,
             identificativo_sdi=identificativo_sdi,
             file=file,
@@ -3998,6 +4110,8 @@ class FatturaElettronicaXmlApi:
             '200': "List[FatturaElettronicaImportResult]",
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4015,6 +4129,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         data_consegna_sdi: Annotated[Optional[datetime], Field(description="Data di consegna del Sistema di Interscambio (SdI).")] = None,
         identificativo_sdi: Annotated[Optional[StrictStr], Field(description="Identificativo assegnato dal Sistema di Interscambio (SdI).")] = None,
         file: Annotated[Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]], Field(description="Contenuto del file.")] = None,
@@ -4039,6 +4154,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param data_consegna_sdi: Data di consegna del Sistema di Interscambio (SdI).
         :type data_consegna_sdi: datetime
         :param identificativo_sdi: Identificativo assegnato dal Sistema di Interscambio (SdI).
@@ -4070,6 +4187,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_import_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             data_consegna_sdi=data_consegna_sdi,
             identificativo_sdi=identificativo_sdi,
             file=file,
@@ -4083,6 +4201,8 @@ class FatturaElettronicaXmlApi:
             '200': "List[FatturaElettronicaImportResult]",
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4095,6 +4215,7 @@ class FatturaElettronicaXmlApi:
         self,
         version,
         company_id,
+        idempotency_key,
         data_consegna_sdi,
         identificativo_sdi,
         file,
@@ -4125,6 +4246,8 @@ class FatturaElettronicaXmlApi:
             _path_params['companyId'] = company_id
         # process the query parameters
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         if data_consegna_sdi is not None:
             _form_params.append(('DataConsegnaSdi', data_consegna_sdi))
@@ -4160,7 +4283,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -4441,7 +4564,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -4468,6 +4591,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         file_name: Annotated[Optional[StrictStr], Field(description="Nome del file.")] = None,
         progressivo: Annotated[Optional[StrictStr], Field(description="Progressivo del Sistema di Interscambio (SdI).")] = None,
         documento_id: Annotated[Optional[StrictInt], Field(description="Identificativo del Amica.Documento da abbinare.")] = None,
@@ -4492,6 +4616,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param file_name: Nome del file.
         :type file_name: str
         :param progressivo: Progressivo del Sistema di Interscambio (SdI).
@@ -4525,6 +4651,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_pair_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             file_name=file_name,
             progressivo=progressivo,
             documento_id=documento_id,
@@ -4539,6 +4666,8 @@ class FatturaElettronicaXmlApi:
             '200': None,
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4556,6 +4685,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         file_name: Annotated[Optional[StrictStr], Field(description="Nome del file.")] = None,
         progressivo: Annotated[Optional[StrictStr], Field(description="Progressivo del Sistema di Interscambio (SdI).")] = None,
         documento_id: Annotated[Optional[StrictInt], Field(description="Identificativo del Amica.Documento da abbinare.")] = None,
@@ -4580,6 +4710,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param file_name: Nome del file.
         :type file_name: str
         :param progressivo: Progressivo del Sistema di Interscambio (SdI).
@@ -4613,6 +4745,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_pair_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             file_name=file_name,
             progressivo=progressivo,
             documento_id=documento_id,
@@ -4627,6 +4760,8 @@ class FatturaElettronicaXmlApi:
             '200': None,
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4644,6 +4779,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         file_name: Annotated[Optional[StrictStr], Field(description="Nome del file.")] = None,
         progressivo: Annotated[Optional[StrictStr], Field(description="Progressivo del Sistema di Interscambio (SdI).")] = None,
         documento_id: Annotated[Optional[StrictInt], Field(description="Identificativo del Amica.Documento da abbinare.")] = None,
@@ -4668,6 +4804,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param file_name: Nome del file.
         :type file_name: str
         :param progressivo: Progressivo del Sistema di Interscambio (SdI).
@@ -4701,6 +4839,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_pair_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             file_name=file_name,
             progressivo=progressivo,
             documento_id=documento_id,
@@ -4715,6 +4854,8 @@ class FatturaElettronicaXmlApi:
             '200': None,
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4727,6 +4868,7 @@ class FatturaElettronicaXmlApi:
         self,
         version,
         company_id,
+        idempotency_key,
         file_name,
         progressivo,
         documento_id,
@@ -4758,6 +4900,8 @@ class FatturaElettronicaXmlApi:
             _path_params['companyId'] = company_id
         # process the query parameters
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         if file_name is not None:
             _form_params.append(('FileName', file_name))
@@ -4795,7 +4939,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -4823,6 +4967,7 @@ class FatturaElettronicaXmlApi:
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
         validation_override: Annotated[Optional[StrictBool], Field(description="Se applicare eventualmente l'override della validazione.")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml: Annotated[Optional[FatturaElettronicaXml], Field(description="Istanza dell'elemento da salvare.")] = None,
         _request_timeout: Union[
             None,
@@ -4846,6 +4991,8 @@ class FatturaElettronicaXmlApi:
         :type company_id: str
         :param validation_override: Se applicare eventualmente l'override della validazione.
         :type validation_override: bool
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml: Istanza dell'elemento da salvare.
         :type fattura_elettronica_xml: FatturaElettronicaXml
         :param _request_timeout: timeout setting for this request. If one
@@ -4874,6 +5021,7 @@ class FatturaElettronicaXmlApi:
             version=version,
             company_id=company_id,
             validation_override=validation_override,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml=fattura_elettronica_xml,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -4886,6 +5034,7 @@ class FatturaElettronicaXmlApi:
             '409': "ProblemDetails",
             '400': "ProblemDetails",
             '429': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4904,6 +5053,7 @@ class FatturaElettronicaXmlApi:
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
         validation_override: Annotated[Optional[StrictBool], Field(description="Se applicare eventualmente l'override della validazione.")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml: Annotated[Optional[FatturaElettronicaXml], Field(description="Istanza dell'elemento da salvare.")] = None,
         _request_timeout: Union[
             None,
@@ -4927,6 +5077,8 @@ class FatturaElettronicaXmlApi:
         :type company_id: str
         :param validation_override: Se applicare eventualmente l'override della validazione.
         :type validation_override: bool
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml: Istanza dell'elemento da salvare.
         :type fattura_elettronica_xml: FatturaElettronicaXml
         :param _request_timeout: timeout setting for this request. If one
@@ -4955,6 +5107,7 @@ class FatturaElettronicaXmlApi:
             version=version,
             company_id=company_id,
             validation_override=validation_override,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml=fattura_elettronica_xml,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -4967,6 +5120,7 @@ class FatturaElettronicaXmlApi:
             '409': "ProblemDetails",
             '400': "ProblemDetails",
             '429': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4985,6 +5139,7 @@ class FatturaElettronicaXmlApi:
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
         validation_override: Annotated[Optional[StrictBool], Field(description="Se applicare eventualmente l'override della validazione.")] = None,
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml: Annotated[Optional[FatturaElettronicaXml], Field(description="Istanza dell'elemento da salvare.")] = None,
         _request_timeout: Union[
             None,
@@ -5008,6 +5163,8 @@ class FatturaElettronicaXmlApi:
         :type company_id: str
         :param validation_override: Se applicare eventualmente l'override della validazione.
         :type validation_override: bool
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml: Istanza dell'elemento da salvare.
         :type fattura_elettronica_xml: FatturaElettronicaXml
         :param _request_timeout: timeout setting for this request. If one
@@ -5036,6 +5193,7 @@ class FatturaElettronicaXmlApi:
             version=version,
             company_id=company_id,
             validation_override=validation_override,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml=fattura_elettronica_xml,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -5048,6 +5206,7 @@ class FatturaElettronicaXmlApi:
             '409': "ProblemDetails",
             '400': "ProblemDetails",
             '429': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5061,6 +5220,7 @@ class FatturaElettronicaXmlApi:
         version,
         company_id,
         validation_override,
+        idempotency_key,
         fattura_elettronica_xml,
         _request_auth,
         _content_type,
@@ -5093,6 +5253,8 @@ class FatturaElettronicaXmlApi:
             _query_params.append(('validationOverride', validation_override))
             
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
         if fattura_elettronica_xml is not None:
@@ -5126,7 +5288,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -5153,6 +5315,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5173,6 +5336,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5198,6 +5363,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_sdi_download_esiti_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5208,6 +5374,8 @@ class FatturaElettronicaXmlApi:
             '200': "List[FatturaElettronicaImportResult]",
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5225,6 +5393,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5245,6 +5414,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5270,6 +5441,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_sdi_download_esiti_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5280,6 +5452,8 @@ class FatturaElettronicaXmlApi:
             '200': "List[FatturaElettronicaImportResult]",
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5297,6 +5471,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5317,6 +5492,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5342,6 +5519,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_sdi_download_esiti_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5352,6 +5530,8 @@ class FatturaElettronicaXmlApi:
             '200': "List[FatturaElettronicaImportResult]",
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5364,6 +5544,7 @@ class FatturaElettronicaXmlApi:
         self,
         version,
         company_id,
+        idempotency_key,
         _request_auth,
         _content_type,
         _headers,
@@ -5391,6 +5572,8 @@ class FatturaElettronicaXmlApi:
             _path_params['companyId'] = company_id
         # process the query parameters
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
 
@@ -5407,7 +5590,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -5434,6 +5617,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5455,6 +5639,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5480,6 +5666,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_sdi_download_fatture_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5490,6 +5677,8 @@ class FatturaElettronicaXmlApi:
             '200': "List[FatturaElettronicaImportResult]",
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5507,6 +5696,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5528,6 +5718,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5553,6 +5745,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_sdi_download_fatture_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5563,6 +5756,8 @@ class FatturaElettronicaXmlApi:
             '200': "List[FatturaElettronicaImportResult]",
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5580,6 +5775,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5601,6 +5797,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5626,6 +5824,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_sdi_download_fatture_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5636,6 +5835,8 @@ class FatturaElettronicaXmlApi:
             '200': "List[FatturaElettronicaImportResult]",
             '400': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5648,6 +5849,7 @@ class FatturaElettronicaXmlApi:
         self,
         version,
         company_id,
+        idempotency_key,
         _request_auth,
         _content_type,
         _headers,
@@ -5675,6 +5877,8 @@ class FatturaElettronicaXmlApi:
             _path_params['companyId'] = company_id
         # process the query parameters
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
 
@@ -5691,7 +5895,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -5718,6 +5922,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_upload_options: Annotated[Optional[FatturaElettronicaUploadOptions], Field(description="Opzioni di invio.")] = None,
         _request_timeout: Union[
             None,
@@ -5740,6 +5945,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_upload_options: Opzioni di invio.
         :type fattura_elettronica_upload_options: FatturaElettronicaUploadOptions
         :param _request_timeout: timeout setting for this request. If one
@@ -5767,6 +5974,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_sdi_upload_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             fattura_elettronica_upload_options=fattura_elettronica_upload_options,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -5779,6 +5987,8 @@ class FatturaElettronicaXmlApi:
             '400': "ProblemDetails",
             '404': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5796,6 +6006,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_upload_options: Annotated[Optional[FatturaElettronicaUploadOptions], Field(description="Opzioni di invio.")] = None,
         _request_timeout: Union[
             None,
@@ -5818,6 +6029,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_upload_options: Opzioni di invio.
         :type fattura_elettronica_upload_options: FatturaElettronicaUploadOptions
         :param _request_timeout: timeout setting for this request. If one
@@ -5845,6 +6058,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_sdi_upload_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             fattura_elettronica_upload_options=fattura_elettronica_upload_options,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -5857,6 +6071,8 @@ class FatturaElettronicaXmlApi:
             '400': "ProblemDetails",
             '404': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5874,6 +6090,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_upload_options: Annotated[Optional[FatturaElettronicaUploadOptions], Field(description="Opzioni di invio.")] = None,
         _request_timeout: Union[
             None,
@@ -5896,6 +6113,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_upload_options: Opzioni di invio.
         :type fattura_elettronica_upload_options: FatturaElettronicaUploadOptions
         :param _request_timeout: timeout setting for this request. If one
@@ -5923,6 +6142,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_sdi_upload_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             fattura_elettronica_upload_options=fattura_elettronica_upload_options,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -5935,6 +6155,8 @@ class FatturaElettronicaXmlApi:
             '400': "ProblemDetails",
             '404': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5947,6 +6169,7 @@ class FatturaElettronicaXmlApi:
         self,
         version,
         company_id,
+        idempotency_key,
         fattura_elettronica_upload_options,
         _request_auth,
         _content_type,
@@ -5975,6 +6198,8 @@ class FatturaElettronicaXmlApi:
             _path_params['companyId'] = company_id
         # process the query parameters
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
         if fattura_elettronica_upload_options is not None:
@@ -6008,7 +6233,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 
@@ -6035,6 +6260,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml_style_sheet_data: Annotated[Optional[FatturaElettronicaXmlStyleSheetData], Field(description="Opzioni di corrispondenza e stile.")] = None,
         _request_timeout: Union[
             None,
@@ -6056,6 +6282,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml_style_sheet_data: Opzioni di corrispondenza e stile.
         :type fattura_elettronica_xml_style_sheet_data: FatturaElettronicaXmlStyleSheetData
         :param _request_timeout: timeout setting for this request. If one
@@ -6083,6 +6311,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_stylesheet_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml_style_sheet_data=fattura_elettronica_xml_style_sheet_data,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -6095,6 +6324,8 @@ class FatturaElettronicaXmlApi:
             '400': "ProblemDetails",
             '404': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6112,6 +6343,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml_style_sheet_data: Annotated[Optional[FatturaElettronicaXmlStyleSheetData], Field(description="Opzioni di corrispondenza e stile.")] = None,
         _request_timeout: Union[
             None,
@@ -6133,6 +6365,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml_style_sheet_data: Opzioni di corrispondenza e stile.
         :type fattura_elettronica_xml_style_sheet_data: FatturaElettronicaXmlStyleSheetData
         :param _request_timeout: timeout setting for this request. If one
@@ -6160,6 +6394,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_stylesheet_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml_style_sheet_data=fattura_elettronica_xml_style_sheet_data,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -6172,6 +6407,8 @@ class FatturaElettronicaXmlApi:
             '400': "ProblemDetails",
             '404': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6189,6 +6426,7 @@ class FatturaElettronicaXmlApi:
         self,
         version: Annotated[StrictStr, Field(description="Versione API.")],
         company_id: Annotated[StrictStr, Field(description="ID univoco dell'azienda.")],
+        idempotency_key: Annotated[Optional[StrictStr], Field(description="Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.")] = None,
         fattura_elettronica_xml_style_sheet_data: Annotated[Optional[FatturaElettronicaXmlStyleSheetData], Field(description="Opzioni di corrispondenza e stile.")] = None,
         _request_timeout: Union[
             None,
@@ -6210,6 +6448,8 @@ class FatturaElettronicaXmlApi:
         :type version: str
         :param company_id: ID univoco dell'azienda. (required)
         :type company_id: str
+        :param idempotency_key: Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`.
+        :type idempotency_key: str
         :param fattura_elettronica_xml_style_sheet_data: Opzioni di corrispondenza e stile.
         :type fattura_elettronica_xml_style_sheet_data: FatturaElettronicaXmlStyleSheetData
         :param _request_timeout: timeout setting for this request. If one
@@ -6237,6 +6477,7 @@ class FatturaElettronicaXmlApi:
         _param = self._api_vversion_company_id_fattura_elettronica_xml_stylesheet_post_serialize(
             version=version,
             company_id=company_id,
+            idempotency_key=idempotency_key,
             fattura_elettronica_xml_style_sheet_data=fattura_elettronica_xml_style_sheet_data,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -6249,6 +6490,8 @@ class FatturaElettronicaXmlApi:
             '400': "ProblemDetails",
             '404': "ProblemDetails",
             '429': None,
+            '409': None,
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6261,6 +6504,7 @@ class FatturaElettronicaXmlApi:
         self,
         version,
         company_id,
+        idempotency_key,
         fattura_elettronica_xml_style_sheet_data,
         _request_auth,
         _content_type,
@@ -6289,6 +6533,8 @@ class FatturaElettronicaXmlApi:
             _path_params['companyId'] = company_id
         # process the query parameters
         # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
         # process the form parameters
         # process the body parameter
         if fattura_elettronica_xml_style_sheet_data is not None:
@@ -6322,7 +6568,7 @@ class FatturaElettronicaXmlApi:
         # authentication setting
         _auth_settings: List[str] = [
             'bearer', 
-            'oauth2', 
+            'oauth2ClientCredentials', 
             'oauth2'
         ]
 

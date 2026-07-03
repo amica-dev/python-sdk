@@ -18,7 +18,7 @@ Restituisce una lista di elementi.
 ### Example
 
 * Bearer (JWT) Authentication (bearer):
-* OAuth Authentication (oauth2):
+* OAuth Authentication (oauth2ClientCredentials):
 * OAuth Authentication (oauth2):
 
 ```python
@@ -91,7 +91,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearer](../README.md#bearer), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[bearer](../README.md#bearer), [oauth2ClientCredentials](../README.md#oauth2ClientCredentials), [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -116,7 +116,7 @@ Restituisce un elemento.
 ### Example
 
 * Bearer (JWT) Authentication (bearer):
-* OAuth Authentication (oauth2):
+* OAuth Authentication (oauth2ClientCredentials):
 * OAuth Authentication (oauth2):
 
 ```python
@@ -181,7 +181,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearer](../README.md#bearer), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[bearer](../README.md#bearer), [oauth2ClientCredentials](../README.md#oauth2ClientCredentials), [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
