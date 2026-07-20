@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,9 +27,19 @@ class DistinctPropertyGroup(BaseModel):
     """
     Query distinct con raggruppamento.
     """ # noqa: E501
-    key: Optional[Any] = Field(default=None, description="Chiave di distinzione (es.: \"RagioneSociale1\").")
+    key: Optional[StrictStr] = Field(default=None, description="Chiave di distinzione (es.: \"RagioneSociale1\").")
     items: Optional[List[DistinctPropertyGroup]] = Field(default=None, description="Valori distinti trovati per la chiave indicata.")
     __properties: ClassVar[List[str]] = ["key", "items"]
+
+    @field_validator('key')
+    def key_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set([]):
+            raise ValueError("must be one of enum values ()")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,

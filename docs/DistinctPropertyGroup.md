@@ -6,7 +6,7 @@ Query distinct con raggruppamento.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **object** | Chiave di distinzione (es.: \&quot;RagioneSociale1\&quot;). | [optional] 
+**key** | **str** | Chiave di distinzione (es.: \&quot;RagioneSociale1\&quot;). | [optional] 
 **items** | [**List[DistinctPropertyGroup]**](DistinctPropertyGroup.md) | Valori distinti trovati per la chiave indicata. | [optional] 
 
 ## Example

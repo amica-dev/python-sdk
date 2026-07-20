@@ -36,15 +36,8 @@ class TestDistinctPropertyGroup(unittest.TestCase):
         model = DistinctPropertyGroup()
         if include_optional:
             return DistinctPropertyGroup(
-                key = None,
-                items = [
-                    amica_python_sdk.models.distinct_property_group.DistinctPropertyGroup(
-                        key = null, 
-                        items = [
-                            amica_python_sdk.models.distinct_property_group.DistinctPropertyGroup(
-                                key = null, )
-                            ], )
-                    ]
+                key = ERROR_TO_EXAMPLE_VALUE,
+                items = ERROR_TO_EXAMPLE_VALUE
             )
         else:
             return DistinctPropertyGroup(

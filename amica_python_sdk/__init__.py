@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "3.0.0-beta4"
+__version__ = "3.0.0"
 
 # import apis into sdk package
 from amica_python_sdk.api.anagrafica_api import AnagraficaApi
