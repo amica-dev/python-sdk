@@ -1,6 +1,6 @@
 # SchedaCliente
 
-Impostazioni e informazioni di vendita di un'Amica.Anagrafica.
+Impostazioni e informazioni di vendita di un'`Anagrafica`.
 
 ## Properties
 
@@ -8,16 +8,16 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | Identificativo univoco. | [optional] 
 **concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
-**anagrafica_id** | **int** | Identificativo univoco di Amica.Anagrafica. | [optional] 
-**agente_id** | **int** | Identificativo univoco di Amica.Anagrafica dell&#39;agente. | [optional] 
+**anagrafica_id** | **int** | Identificativo univoco di &#x60;Anagrafica&#x60;. | [optional] 
+**agente_id** | **int** | Identificativo univoco di &#x60;Anagrafica&#x60; dell&#39;agente. | [optional] 
 **agente** | [**Anagrafica**](Anagrafica.md) |  | [optional] 
-**pagamento_id** | **int** | Identificativo univoco di Amica.SchedaCliente.Pagamento. | [optional] 
+**pagamento_id** | **int** | Identificativo univoco di &#x60;Pagamento&#x60;. | [optional] 
 **pagamento** | [**Pagamento**](Pagamento.md) |  | [optional] 
-**listino_id** | **int** | Identificativo univoco di Amica.SchedaCliente.Listino. | [optional] 
+**listino_id** | **int** | Identificativo univoco di &#x60;Listino&#x60;. | [optional] 
 **listino** | [**Listino**](Listino.md) |  | [optional] 
-**categoria_anagrafica_id** | **int** | Identificativo univoco di Amica.SchedaCliente.CategoriaAnagrafica. | [optional] 
+**categoria_anagrafica_id** | **int** | Identificativo univoco di &#x60;CategoriaAnagrafica&#x60;. | [optional] 
 **categoria_anagrafica** | [**CategoriaAnagrafica**](CategoriaAnagrafica.md) |  | [optional] 
-**causale_iva_id** | **int** | Identificativo univoco di Amica.SchedaCliente.CausaleIva. | [optional] 
+**causale_iva_id** | **int** | Identificativo univoco di &#x60;CausaleIva&#x60;. | [optional] 
 **causale_iva** | [**CausaleIva**](CausaleIva.md) |  | [optional] 
 **fido** | **float** | Fido concesso al cliente. | [optional] 
 **sconto** | **float** | Sconto riservato al cliente (percentuale). | [optional] 

@@ -1,12 +1,12 @@
 # FatturaElettronicaImportResult
 
-Esito della chiamata al metodo M:Amica.FatturaElettronicaXmlService.XmlImport(Amica.FatturaElettronicaImportOptions,System.Byte[],System.String,Amica.RequestSettings) di `FatturaElettronicaXmlService`.
+Esito della chiamata al metodo `XmlImport` di `FatturaElettronicaXmlService`.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**documento_id** | **int** | Identificativo univoco di Amica.Documento. | [optional] 
+**documento_id** | **int** | Identificativo univoco di &#x60;Documento&#x60;. | [optional] 
 **messaggi** | **List[str]** | Messaggi relativi alla procedura di importazione. | [optional] 
 **esito** | **str** | Esito dell&#39;importazione (&#x60;OK&#x60;, &#x60;OK con messaggi&#x60;, &#x60;SCARTATO (DUPLICATO)&#x60;, ecc.) | [optional] 
 **is_success** | **bool** | Indica se l&#39;importazione è andata a buon fine. | [optional] [readonly] 

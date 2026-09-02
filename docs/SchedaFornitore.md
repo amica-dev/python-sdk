@@ -1,6 +1,6 @@
 # SchedaFornitore
 
-Impostazioni e informazioni di acquisto di un'Amica.Anagrafica.
+Impostazioni e informazioni di acquisto di un'`Anagrafica`.
 
 ## Properties
 
@@ -8,16 +8,16 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | Identificativo univoco. | [optional] 
 **concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
-**anagrafica_id** | **int** | Identificativo univoco di Amica.Anagrafica. | [optional] 
-**pagamento_id** | **int** | Identificativo univoco di Amica.SchedaFornitore.Pagamento. | [optional] 
+**anagrafica_id** | **int** | Identificativo univoco di &#x60;Anagrafica&#x60;. | [optional] 
+**pagamento_id** | **int** | Identificativo univoco di &#x60;Pagamento&#x60;. | [optional] 
 **pagamento** | [**Pagamento**](Pagamento.md) |  | [optional] 
-**listino_id** | **int** | Identificativo univoco di Amica.SchedaFornitore.Listino. | [optional] 
+**listino_id** | **int** | Identificativo univoco di &#x60;Listino&#x60;. | [optional] 
 **listino** | [**Listino**](Listino.md) |  | [optional] 
-**capo_area_id** | **int** | Identificativo univoco di Amica.SchedaFornitore.CapoArea. | [optional] 
+**capo_area_id** | **int** | Identificativo univoco di &#x60;CapoArea&#x60;. | [optional] 
 **capo_area** | [**Anagrafica**](Anagrafica.md) |  | [optional] 
-**categoria_anagrafica_id** | **int** | Identificativo univoco di Amica.SchedaFornitore.CategoriaAnagrafica. | [optional] 
+**categoria_anagrafica_id** | **int** | Identificativo univoco di &#x60;CategoriaAnagrafica&#x60;. | [optional] 
 **categoria_anagrafica** | [**CategoriaAnagrafica**](CategoriaAnagrafica.md) |  | [optional] 
-**causale_iva_id** | **int** | Identificativo univoco di Amica.SchedaFornitore.CausaleIva. | [optional] 
+**causale_iva_id** | **int** | Identificativo univoco di &#x60;CausaleIva&#x60;. | [optional] 
 **causale_iva** | [**CausaleIva**](CausaleIva.md) |  | [optional] 
 **fatturato_anno_corrente** | **float** | Fatturato realizzato nell&#39;anno corrente. | [optional] 
 **numero_fatture_anno_corrente** | **int** | Numero di fatture ricevute nell&#39;anno corrente. | [optional] 

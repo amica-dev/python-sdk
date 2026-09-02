@@ -6,7 +6,7 @@ Opzioni di esportazione della fattura elettronica.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**documento_id** | **List[int]** | Identificativi dei Amica.Documento da esportare. | [optional] 
+**documento_id** | **List[int]** | Identificativi dei &#x60;Documento&#x60; da esportare. | [optional] 
 
 ## Example
 

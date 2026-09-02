@@ -8,9 +8,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | Identificativo univoco. | [optional] 
 **concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
-**magazzino_id** | **int** | Identificativo univoco di Amica.Giacenza.Magazzino. | [optional] 
+**magazzino_id** | **int** | Identificativo univoco di &#x60;Magazzino&#x60;. | [optional] 
 **magazzino** | [**Magazzino**](Magazzino.md) |  | [optional] 
-**articolo_id** | **int** | Identificativo univoco di Amica.Giacenza.Articolo. | [optional] 
+**articolo_id** | **int** | Identificativo univoco di &#x60;Articolo&#x60;. | [optional] 
 **articolo** | [**Articolo**](Articolo.md) |  | [optional] 
 **quantit_in_giacenza** | **float** | Quantità in giacenza. | [optional] 
 **quantit_impegnata** | **float** | Quantità impegnata. | [optional] 

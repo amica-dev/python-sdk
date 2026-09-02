@@ -1,13 +1,13 @@
 # FatturaElettronicaXmlStyleSheetData
 
-Opzioni per la chiamata al metodo M:Amica.FatturaElettronicaXmlService.ApplyStyleSheet(Amica.FatturaElettronicaXmlStyleSheetData,Amica.RequestSettings) di `FatturaElettronicaXmlService`.
+Opzioni per la chiamata al metodo `ApplyStyleSheet` di `FatturaElettronicaXmlService`.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Identificativo univoco di Amica.FatturaElettronicaXml. In alternativa, valorizzare Amica.FatturaElettronicaXmlStyleSheetData.FileName. | [optional] 
-**file_name** | **str** | Nome del file XML. Se presente, ha la precedenza su Amica.FatturaElettronicaXmlStyleSheetData.Id. | [optional] 
+**id** | **int** | Identificativo univoco di &#x60;FatturaElettronicaXml&#x60;. In alternativa, valorizzare &#x60;FileName&#x60;. | [optional] 
+**file_name** | **str** | Nome del file XML. Se presente, ha la precedenza su &#x60;Id&#x60;. | [optional] 
 **style_sheet** | **str** | Foglio di stile da applicare. | [optional] 
 
 ## Example

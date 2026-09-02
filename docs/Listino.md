@@ -8,9 +8,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | Identificativo univoco. | [optional] 
 **concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
-**fornitore_id** | **int** | Identificativo univoco di Amica.Anagrafica (fornitore). | [optional] 
+**fornitore_id** | **int** | Identificativo univoco di &#x60;Anagrafica&#x60; (fornitore). | [optional] 
 **fornitore** | [**Anagrafica**](Anagrafica.md) |  | [optional] 
-**valuta_id** | **int** | Identificativo univoco di Amica.Listino.Valuta (valuta). | [optional] 
+**valuta_id** | **int** | Identificativo univoco di &#x60;Valuta&#x60; (valuta). | [optional] 
 **valuta** | [**Valuta**](Valuta.md) |  | [optional] 
 **nome** | **str** | Nome del listino. | 
 **iva_inclusa** | **bool** | Indica se i prezzi base sono IVA inclusa oppure no. | [optional] 

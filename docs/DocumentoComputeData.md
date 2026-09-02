@@ -1,6 +1,6 @@
 # DocumentoComputeData
 
-Utilizzato dal metodo M:Amica.DocumentoService.Compute(Amica.DocumentoComputeData,Amica.RequestSettings,System.Boolean) di `DocumentoService`.
+Utilizzato dal metodo `Compute` di `DocumentoService`.
 
 ## Properties
 

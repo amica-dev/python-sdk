@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **da** | **datetime** | Data di inizio del periodo. | [optional] 
 **a** | **datetime** | Data di fine del periodo. | [optional] 
 **tipo_importazione** | **str** | Tipo di importazione. | [optional] 
-**causale_documento_id** | **int** | Identificativo univoco della Amica.CausaleDocumento del documento generato. | [optional] 
+**causale_documento_id** | **int** | Identificativo univoco della &#x60;CausaleDocumento&#x60; del documento generato. | [optional] 
 **data_documento** | **datetime** | Data del documento generato. | [optional] 
 **tipo_documento** | **str** | Tipo del documento generato. | [optional] 
 

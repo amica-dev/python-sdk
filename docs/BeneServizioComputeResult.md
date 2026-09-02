@@ -1,6 +1,6 @@
 # BeneServizioComputeResult
 
-Restituito dal metodo M:Amica.BeneServizioService.Compute(Amica.BeneServizioComputeData,Amica.RequestSettings) di `BeneServizioServizio`.
+Restituito dal metodo `Compute` di `BeneServizioServizio`.
 
 ## Properties
 
@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **prezzo** | **float** | Prezzo IVA esclusa. | [optional] 
 **prezzo_ivato** | **float** | Prezzo IVA inclusa. | [optional] 
 **prezzo_scontato** | **float** | Prezzo scontato, ovvero al netto degli sconti percentuali indicati e dello sconto incondizionato. | [optional] 
-**importo** | **float** | Importo, determinato come prodotto tra Amica.BeneServizio.Quantità e Amica.BeneServizio.PrezzoScontato. | [optional] 
+**importo** | **float** | Importo, determinato come prodotto tra &#x60;Quantità&#x60; e &#x60;PrezzoScontato&#x60;. | [optional] 
 
 ## Example
 

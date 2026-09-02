@@ -1,12 +1,12 @@
 # RegistrazioneContabileValidationResult
 
-Contiene l'esito della validazione di una registrazione contabile (Amica.RegistrazioneContabile).
+Contiene l'esito della validazione di una registrazione contabile (`RegistrazioneContabile`).
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**registrazione_id** | **int** | Identificativo univoco della Amica.RegistrazioneContabile. | [optional] 
+**registrazione_id** | **int** | Identificativo univoco della &#x60;RegistrazioneContabile&#x60;. | [optional] 
 **data** | **datetime** | Data della registrazione contabile. | [optional] 
 **numero** | **int** | Numero della registrazione contabile. | [optional] 
 **errori** | **List[str]** | Errori di validazione; vuoto se non ne sono stati trovati. | [optional] 

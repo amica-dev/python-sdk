@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **imponibile** | **float** | Imponibile. | [optional] 
 **imposta** | **float** | Importo dell&#39;imposta. | [optional] 
 **aliquota** | **float** | Aliquota IVA (percentuale). | [optional] 
-**causale_iva_id** | **int** | Identificativo univoco di Amica.CausaleIva. | [optional] 
+**causale_iva_id** | **int** | Identificativo univoco di &#x60;CausaleIva&#x60;. | [optional] 
 **causale_iva_codice** | **str** | Codice IVA. | [optional] 
 **causale_iva_nome** | **str** | Descrizione, o nome, del codice IVA. | [optional] 
 

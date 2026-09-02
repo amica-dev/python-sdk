@@ -1,12 +1,12 @@
 # ContoContabileValidationResult
 
-Contiene l'esito della validazione di un conto (Amica.ContoContabile).
+Contiene l'esito della validazione di un conto (`ContoContabile`).
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**conto_id** | **int** | Identificativo univoco del Amica.ContoContabile. | [optional] 
+**conto_id** | **int** | Identificativo univoco del &#x60;ContoContabile&#x60;. | [optional] 
 **conto** | **str** | Numero di conto (ad es. \&quot;100.20\&quot;). | [optional] 
 **sezione** | **str** | Sezione dopo la correzione. | [optional] 
 **errori** | **str** | Errore di validazione. | [optional] 
