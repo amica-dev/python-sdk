@@ -1,15 +1,14 @@
 # Nazione
 
-Nazione.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Identificativo univoco. | [optional] 
-**concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
-**nome** | **str** | Nome. | 
-**codice** | **str** | Un codice nazione ISO 3166-1 Alpha 2 valido. | 
+**id** | **int** |  | [optional] 
+**concurrency_token** | **int** |  | [optional] 
+**nome** | **str** |  | 
+**codice** | **str** |  | 
 
 ## Example
 

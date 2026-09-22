@@ -1,16 +1,15 @@
 # ModalitaPagamento
 
-Modalità di pagamento.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Identificativo univoco. | [optional] 
-**concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
-**nome** | **str** | Nome, o descrizione. | 
-**codice_pagamento_fe** | **str** | Codice corrispondente per la fattura elettronica (es. \&quot;MP01\&quot;). | [optional] 
-**ricevuta_bancaria** | **bool** | Indica se è una ricevuta bancaria o meno. | [optional] 
+**id** | **int** |  | [optional] 
+**concurrency_token** | **int** |  | [optional] 
+**nome** | **str** |  | 
+**codice_pagamento_fe** | **str** |  | [optional] 
+**ricevuta_bancaria** | **bool** |  | [optional] 
 
 ## Example
 

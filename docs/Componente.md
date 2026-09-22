@@ -1,18 +1,17 @@
 # Componente
 
-Componente (distinta base). Può essere incluso in `DistintaBase`.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Identificativo univoco. | [optional] 
-**concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
-**articolo_id** | **int** | Identificativo univoco dell&#39;&#x60;Articolo&#x60; da comporre. | [optional] 
+**id** | **int** |  | [optional] 
+**concurrency_token** | **int** |  | [optional] 
+**articolo_id** | **int** |  | [optional] 
 **articolo** | [**Articolo**](Articolo.md) |  | [optional] 
-**articolo_componente_id** | **int** | Identificativo univoco del componente (distinta base). | [optional] 
+**articolo_componente_id** | **int** |  | [optional] 
 **articolo_componente** | [**Articolo**](Articolo.md) |  | [optional] 
-**quantita_necessaria** | **float** | Quantità necessaria per l&#39;assemblaggio. | [optional] 
+**quantita_necessaria** | **float** |  | [optional] 
 
 ## Example
 

@@ -1,13 +1,12 @@
 # DocumentoCollegato
 
-Dati di riferimento del documento.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**numero** | **str** | Numero del documento. | [optional] 
-**data** | **datetime** | Data del documento. | [optional] 
+**numero** | **str** |  | [optional] 
+**data** | **datetime** |  | [optional] 
 
 ## Example
 

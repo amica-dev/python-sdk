@@ -1,15 +1,14 @@
 # CreditoDebitoMensile
 
-Saldo periodico (credito/debito mensile).
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**periodo** | **datetime** | Periodo preso in considerazione. | [optional] 
-**credito** | **float** | Credito calcolato per il periodo. | [optional] 
-**debito** | **float** | Debito calcolato per il periodo. | [optional] 
-**saldo** | **float** | Credito meno debito (saldo). | [optional] 
+**periodo** | **datetime** |  | [optional] 
+**credito** | **float** |  | [optional] 
+**debito** | **float** |  | [optional] 
+**saldo** | **float** |  | [optional] 
 
 ## Example
 

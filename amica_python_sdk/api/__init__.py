@@ -40,7 +40,6 @@ from amica_python_sdk.api.prezzo_api import PrezzoApi
 from amica_python_sdk.api.produttore_api import ProduttoreApi
 from amica_python_sdk.api.progressivo_invio_api import ProgressivoInvioApi
 from amica_python_sdk.api.registrazione_contabile_api import RegistrazioneContabileApi
-from amica_python_sdk.api.reparto_api import RepartoApi
 from amica_python_sdk.api.risorsa_finanziaria_api import RisorsaFinanziariaApi
 from amica_python_sdk.api.scadenza_api import ScadenzaApi
 from amica_python_sdk.api.situazione_api import SituazioneApi

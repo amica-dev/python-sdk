@@ -1,28 +1,27 @@
 # DocumentoComputeResult
 
-Restituito dal metodo `Compute` di `DocumentoService`.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totale_merce** | **float** | Importo della merce. | [optional] 
-**totale_merce_scontata** | **float** | Importo della merce scontata. | [optional] 
-**totale_imponibile** | **float** | Totale imponibile, considerando tutte le causali IVA coinvolte. | [optional] 
-**totale_spese_esenti** | **float** | Totale delle spese esenti da IVA. | [optional] 
-**totale_spese_non_esenti** | **float** | Totale delle spese non esenti da IVA. | [optional] 
-**totale_spese** | **float** | Totale delle spese esenti e non esenti. | [optional] 
-**totale_ritenuta** | **float** | Importo della ritenuta di acconto. | [optional] 
-**totale_cassa_previdenziale** | **float** | Importo della cassa previdenziale. | [optional] 
-**enasarco_importo** | **float** | Importo Enasarco. | [optional] 
-**totale_esente** | **float** | Importi esenti da IVA. | [optional] 
-**totale_imposta** | **float** | Imposta IVA. | [optional] 
-**totale_split_payment** | **float** | Importo dello split payment. | [optional] 
-**totale_abbuoni** | **float** | Importo degli abbuoni. | [optional] 
-**totale_documento** | **float** | Importo totale del documento. | [optional] 
-**bonus_fiscale_importo** | **float** | Importo del bonus fiscale. | [optional] 
-**netto_a_pagare** | **float** | Netto a pagare. | [optional] 
-**riepiloghi_iva** | [**List[DocumentoComputeResultRiepilogoIva]**](DocumentoComputeResultRiepilogoIva.md) | Riepiloghi IVA. | [optional] 
+**totale_merce** | **float** |  | [optional] 
+**totale_merce_scontata** | **float** |  | [optional] 
+**totale_imponibile** | **float** |  | [optional] 
+**totale_spese_esenti** | **float** |  | [optional] 
+**totale_spese_non_esenti** | **float** |  | [optional] 
+**totale_spese** | **float** |  | [optional] 
+**totale_ritenuta** | **float** |  | [optional] 
+**totale_cassa_previdenziale** | **float** |  | [optional] 
+**enasarco_importo** | **float** |  | [optional] 
+**totale_esente** | **float** |  | [optional] 
+**totale_imposta** | **float** |  | [optional] 
+**totale_split_payment** | **float** |  | [optional] 
+**totale_abbuoni** | **float** |  | [optional] 
+**totale_documento** | **float** |  | [optional] 
+**bonus_fiscale_importo** | **float** |  | [optional] 
+**netto_a_pagare** | **float** |  | [optional] 
+**riepiloghi_iva** | [**List[DocumentoComputeResultRiepilogoIva]**](DocumentoComputeResultRiepilogoIva.md) |  | [optional] 
 
 ## Example
 

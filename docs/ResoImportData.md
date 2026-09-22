@@ -1,13 +1,12 @@
 # ResoImportData
 
-Dati di importazione del reso.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **List[int]** | Identificativo del documento da importare. | [optional] 
-**solo_righe** | **bool** | Importa solo le righe del documento. | [optional] 
+**id** | **List[int]** |  | [optional] 
+**solo_righe** | **bool** |  | [optional] 
 
 ## Example
 

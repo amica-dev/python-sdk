@@ -1,16 +1,15 @@
 # DatiPA
 
-Dati per la pubblica amministrazione.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**codice_commessa_convenzione_pa** | **str** | Identificativo del contratto o della convenzione assegnato dalla pubblica amministrazione. | [optional] 
-**codice_cup** | **str** | Codice CUP assegnato dalla pubblica amministrazione. | [optional] 
-**codice_cig** | **str** | Codice CIG assegnato dalla pubblica amministrazione. | [optional] 
-**numero_ordine_pa** | **str** | Numero d&#39;ordine della pubblica amministrazione. | [optional] 
-**data_ordine_pa** | **datetime** | Data dell&#39;ordine della pubblica amministrazione. | [optional] 
+**codice_commessa_convenzione_pa** | **str** |  | [optional] 
+**codice_cup** | **str** |  | [optional] 
+**codice_cig** | **str** |  | [optional] 
+**numero_ordine_pa** | **str** |  | [optional] 
+**data_ordine_pa** | **datetime** |  | [optional] 
 
 ## Example
 

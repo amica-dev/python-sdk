@@ -1,13 +1,12 @@
 # DocumentoComputeDataSpesa
 
-Metadati della spesa di documento.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**causale_iva_id** | **int** | Identificativo univoco del codice IVA. | [optional] 
-**importo** | **float** | Importo. | [optional] 
+**causale_iva_id** | **int** |  | [optional] 
+**importo** | **float** |  | [optional] 
 
 ## Example
 

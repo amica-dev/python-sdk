@@ -1,17 +1,16 @@
 # PeriodicInvoicingData
 
-Dati di fatturazione periodica.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**da** | **datetime** | Data di inizio del periodo. | [optional] 
-**a** | **datetime** | Data di fine del periodo. | [optional] 
-**tipo_importazione** | **str** | Tipo di importazione. | [optional] 
-**causale_documento_id** | **int** | Identificativo univoco della &#x60;CausaleDocumento&#x60; del documento generato. | [optional] 
-**data_documento** | **datetime** | Data del documento generato. | [optional] 
-**tipo_documento** | **str** | Tipo del documento generato. | [optional] 
+**da** | **datetime** |  | [optional] 
+**a** | **datetime** |  | [optional] 
+**tipo_importazione** | **str** |  | [optional] 
+**causale_documento_id** | **int** |  | [optional] 
+**data_documento** | **datetime** |  | [optional] 
+**tipo_documento** | **str** |  | [optional] 
 
 ## Example
 

@@ -1,14 +1,13 @@
 # DdtImportData
 
-Dati di importazione del DDT.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **List[int]** | Identificativo del documento da importare. | [optional] 
-**tipo_importazione** | **str** | Indica se importare i totali del documento o tutti i dati, e se gli articoli dello stesso tipo debbano essere accorpati. | [optional] 
-**spese_incluse** | **bool** | Indica se le spese del documento debbano essere incluse. Se si importano più documenti, solo l&#39;ultimo avrà le proprie spese incluse. | [optional] 
+**id** | **List[int]** |  | [optional] 
+**tipo_importazione** | **str** |  | [optional] 
+**spese_incluse** | **bool** |  | [optional] 
 
 ## Example
 

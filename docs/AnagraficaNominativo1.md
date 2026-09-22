@@ -1,18 +1,17 @@
 # AnagraficaNominativo1
 
-Persona di contatto principale all'interno di un'anagrafica.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**nome** | **str** | Nome del contatto. | [optional] 
-**incarico** | **str** | Ruolo del contatto all&#39;interno dell&#39;anagrafica. | [optional] 
-**telefono1** | **str** | Numero di telefono principale del contatto. | [optional] 
-**telefono2** | **str** | Numero di telefono secondario del contatto. | [optional] 
-**fax** | **str** | Numero di fax del contatto. | [optional] 
-**e_mail** | **str** | Indirizzo email del contatto. | [optional] 
-**note** | **str** | Note. | [optional] 
+**nome** | **str** |  | [optional] 
+**incarico** | **str** |  | [optional] 
+**telefono1** | **str** |  | [optional] 
+**telefono2** | **str** |  | [optional] 
+**fax** | **str** |  | [optional] 
+**e_mail** | **str** |  | [optional] 
+**note** | **str** |  | [optional] 
 
 ## Example
 

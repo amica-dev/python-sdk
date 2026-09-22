@@ -45,7 +45,6 @@ amica_python_sdk/api/prezzo_api.py
 amica_python_sdk/api/produttore_api.py
 amica_python_sdk/api/progressivo_invio_api.py
 amica_python_sdk/api/registrazione_contabile_api.py
-amica_python_sdk/api/reparto_api.py
 amica_python_sdk/api/risorsa_finanziaria_api.py
 amica_python_sdk/api/scadenza_api.py
 amica_python_sdk/api/situazione_api.py
@@ -272,7 +271,6 @@ docs/RegistrazioneContabileApi.md
 docs/RegistrazioneContabileRiga.md
 docs/RegistrazioneContabileValidationResult.md
 docs/Reparto.md
-docs/RepartoApi.md
 docs/ResoImportData.md
 docs/RicercaArticolo.md
 docs/RisorsaFinanziaria.md
@@ -419,7 +417,6 @@ test/test_registrazione_contabile_api.py
 test/test_registrazione_contabile_riga.py
 test/test_registrazione_contabile_validation_result.py
 test/test_reparto.py
-test/test_reparto_api.py
 test/test_reso_import_data.py
 test/test_ricerca_articolo.py
 test/test_risorsa_finanziaria.py

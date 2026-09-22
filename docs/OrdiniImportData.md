@@ -1,14 +1,13 @@
 # OrdiniImportData
 
-Dati di importazione dell'ordine.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **List[int]** | Identificativo del documento da importare. | [optional] 
-**solo_righe** | **bool** | Importa solo le righe del documento. | [optional] 
-**includi_riferimento** | **bool** | Aggiunge un riferimento al documento. | [optional] 
+**id** | **List[int]** |  | [optional] 
+**solo_righe** | **bool** |  | [optional] 
+**includi_riferimento** | **bool** |  | [optional] 
 
 ## Example
 

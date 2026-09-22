@@ -1,14 +1,13 @@
 # FatturaElettronicaXmlStyleSheetData
 
-Opzioni per la chiamata al metodo `ApplyStyleSheet` di `FatturaElettronicaXmlService`.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Identificativo univoco di &#x60;FatturaElettronicaXml&#x60;. In alternativa, valorizzare &#x60;FileName&#x60;. | [optional] 
-**file_name** | **str** | Nome del file XML. Se presente, ha la precedenza su &#x60;Id&#x60;. | [optional] 
-**style_sheet** | **str** | Foglio di stile da applicare. | [optional] 
+**id** | **int** |  | [optional] 
+**file_name** | **str** |  | [optional] 
+**style_sheet** | **str** |  | [optional] 
 
 ## Example
 

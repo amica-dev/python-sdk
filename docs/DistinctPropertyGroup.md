@@ -1,13 +1,12 @@
 # DistinctPropertyGroup
 
-Query distinct con raggruppamento.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **str** | Chiave di distinzione (es.: \&quot;RagioneSociale1\&quot;). | [optional] 
-**items** | [**List[DistinctPropertyGroup]**](DistinctPropertyGroup.md) | Valori distinti trovati per la chiave indicata. | [optional] 
+**key** | **str** |  | [optional] 
+**items** | [**List[DistinctPropertyGroup]**](DistinctPropertyGroup.md) |  | [optional] 
 
 ## Example
 

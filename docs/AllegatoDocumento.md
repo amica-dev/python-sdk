@@ -1,17 +1,16 @@
 # AllegatoDocumento
 
-Rappresentazione binaria, con metadati, di un allegato XML (\"fattura elettronica\").
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**nome** | **str** | Nome dell&#39;allegato. | [optional] 
-**descrizione** | **str** | Descrizione dell&#39;allegato. | [optional] 
-**formato** | **str** | Formato dell&#39;allegato. Esempi validi sono \&quot;PDF\&quot;, \&quot;XML\&quot;, \&quot;TXT\&quot;, \&quot;DOC\&quot;, ecc. | [optional] 
-**data_documento** | **datetime** | Data dell&#39;allegato. | [optional] 
-**numero_documento** | **str** | Numero dell&#39;allegato. | [optional] 
-**allegato** | **bytearray** | Rappresentazione binaria dell&#39;allegato. Questo campo contiene l&#39;allegato stesso. | [optional] 
+**nome** | **str** |  | [optional] 
+**descrizione** | **str** |  | [optional] 
+**formato** | **str** |  | [optional] 
+**data_documento** | **datetime** |  | [optional] 
+**numero_documento** | **str** |  | [optional] 
+**allegato** | **bytearray** |  | [optional] 
 
 ## Example
 

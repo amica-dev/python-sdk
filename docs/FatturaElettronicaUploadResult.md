@@ -1,14 +1,13 @@
 # FatturaElettronicaUploadResult
 
-Esito della chiamata al metodo `SdiUpload` di `FatturaElettronicaXmlService`.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**messaggi** | **List[str]** | Messaggi relativi alla procedura di caricamento. | [optional] 
-**esito** | **str** | Esito del caricamento. | [optional] 
-**is_success** | **bool** | Indica se il caricamento è andato a buon fine. | [optional] [readonly] 
+**messaggi** | **List[str]** |  | [optional] 
+**esito** | **str** |  | [optional] 
+**is_success** | **bool** |  | [optional] [readonly] 
 
 ## Example
 

@@ -1,13 +1,12 @@
 # FatturatoMensile
 
-Fatturato mensile.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**periodo** | **datetime** | Periodo di riferimento. | [optional] 
-**importo** | **float** | Importo per il periodo. | [optional] 
+**periodo** | **datetime** |  | [optional] 
+**importo** | **float** |  | [optional] 
 
 ## Example
 

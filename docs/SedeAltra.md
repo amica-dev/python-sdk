@@ -1,20 +1,19 @@
 # SedeAltra
 
-Altra sede.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Identificativo univoco. | [optional] 
-**concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
-**indirizzo** | **str** | Indirizzo. | [optional] 
-**localit** | **str** | Città, comune o altro nome di località. | [optional] 
-**cap** | **str** | CAP o codice di zona. | [optional] 
-**provincia** | **str** | Provincia o nome dell&#39;area. | [optional] 
-**telefono1** | **str** | Numero di telefono principale. | [optional] 
-**telefono2** | **str** | Numero di telefono secondario. | [optional] 
-**fax** | **str** | Numero di fax. | [optional] 
+**id** | **int** |  | [optional] 
+**concurrency_token** | **int** |  | [optional] 
+**indirizzo** | **str** |  | [optional] 
+**localit** | **str** |  | [optional] 
+**cap** | **str** |  | [optional] 
+**provincia** | **str** |  | [optional] 
+**telefono1** | **str** |  | [optional] 
+**telefono2** | **str** |  | [optional] 
+**fax** | **str** |  | [optional] 
 
 ## Example
 

@@ -1,27 +1,26 @@
 # MovimentoMerce
 
-Movimento di magazzino.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Identificativo univoco. | [optional] 
-**concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
-**modalita_pagamento_id** | **int** | Identificativo univoco di &#x60;ModalitaPagamento&#x60;. | [optional] 
+**id** | **int** |  | [optional] 
+**concurrency_token** | **int** |  | [optional] 
+**modalita_pagamento_id** | **int** |  | [optional] 
 **modalita_pagamento** | [**ModalitaPagamento**](ModalitaPagamento.md) |  | [optional] 
-**causale_magazzino_id** | **int** | Identificativo univoco di &#x60;CausaleMagazzino&#x60;. | [optional] 
+**causale_magazzino_id** | **int** |  | [optional] 
 **causale_magazzino** | [**CausaleMagazzino**](CausaleMagazzino.md) |  | [optional] 
-**anagrafica_id** | **int** | Identificativo univoco di &#x60;Anagrafica&#x60;. | [optional] 
+**anagrafica_id** | **int** |  | [optional] 
 **anagrafica** | [**Anagrafica**](Anagrafica.md) |  | [optional] 
-**documento_id** | **int** | Identificativo univoco di &#x60;Documento&#x60;. | [optional] 
-**iva_esclusa** | **bool** | Indica se i prezzi inseriti sono da considerarsi al netto dell&#39;IVA. Se &#x60;false&#x60;, l&#39;IVA verrà scorporata in fase di elaborazione (app ufficiali). | [optional] 
-**data** | **datetime** | Data del movimento. | [optional] 
-**descrizione** | **str** | Descrizione. | [optional] 
-**documento_numero** | **str** | Numero del documento di riferimento. | [optional] 
-**documento_data** | **datetime** | Data del documento di riferimento. | [optional] 
-**note** | **str** | Note. | [optional] 
-**righe** | [**List[MovimentoMerceRiga]**](MovimentoMerceRiga.md) | Righe del movimento. | [optional] 
+**documento_id** | **int** |  | [optional] 
+**iva_esclusa** | **bool** |  | [optional] 
+**data** | **datetime** |  | [optional] 
+**descrizione** | **str** |  | [optional] 
+**documento_numero** | **str** |  | [optional] 
+**documento_data** | **datetime** |  | [optional] 
+**note** | **str** |  | [optional] 
+**righe** | [**List[MovimentoMerceRiga]**](MovimentoMerceRiga.md) |  | [optional] 
 
 ## Example
 

@@ -1,15 +1,14 @@
 # DatiAggiuntivi
 
-Dati aggiuntivi.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**identificativo** | **str** | Numero seriale, o qualsiasi altro identificativo. | [optional] 
-**identificativo_esteso** | **str** | Identificativo esteso. | [optional] 
-**data** | **datetime** | Data di scadenza, produzione, fine garanzia o altro. | [optional] 
-**colore** | **str** | Colore. | [optional] 
+**identificativo** | **str** |  | [optional] 
+**identificativo_esteso** | **str** |  | [optional] 
+**data** | **datetime** |  | [optional] 
+**colore** | **str** |  | [optional] 
 
 ## Example
 

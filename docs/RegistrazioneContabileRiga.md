@@ -1,27 +1,26 @@
 # RegistrazioneContabileRiga
 
-Riga di registrazione contabile.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Identificativo univoco. | [optional] 
-**concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
-**registrazione_contabile_id** | **int** | Identificativo univoco di &#x60;RegistrazioneContabile&#x60;. | [optional] 
-**scadenza_id** | **int** | Identificativo univoco di &#x60;Scadenza&#x60;. | [optional] 
-**causale_contabile_id** | **int** | Identificativo univoco di &#x60;CausaleContabile&#x60;. | [optional] 
-**emissione_id** | **int** | Identificativo del &#x60;Documento&#x60; di riferimento. | [optional] 
-**tipo_conto** | **str** | Tipo di conto (piano dei conti). | [optional] 
-**sezione_conto** | **str** | Sezione del piano dei conti. | [optional] 
-**partita_anno** | **int** | Anno della partita aperta. | [optional] 
-**partita_numero** | **int** | Numero della partita aperta. | [optional] 
-**conto** | **str** | Numero di conto (ad es. \&quot;100.20\&quot;). | [optional] 
-**conto_raw** | **str** | Numero di conto, in formato grezzo (ad es. \&quot;  100   20\&quot;). | [optional] 
-**descrizione_conto** | **str** | Descrizione. | [optional] 
-**dare** | **float** | Importo in dare. | [optional] 
-**avere** | **float** | Importo in avere. | [optional] 
-**note** | **str** | Note. | [optional] 
+**id** | **int** |  | [optional] 
+**concurrency_token** | **int** |  | [optional] 
+**registrazione_contabile_id** | **int** |  | [optional] 
+**scadenza_id** | **int** |  | [optional] 
+**causale_contabile_id** | **int** |  | [optional] 
+**emissione_id** | **int** |  | [optional] 
+**tipo_conto** | **str** |  | [optional] 
+**sezione_conto** | **str** |  | [optional] 
+**partita_anno** | **int** |  | [optional] 
+**partita_numero** | **int** |  | [optional] 
+**conto** | **str** |  | [optional] 
+**conto_raw** | **str** |  | [optional] 
+**descrizione_conto** | **str** |  | [optional] 
+**dare** | **float** |  | [optional] 
+**avere** | **float** |  | [optional] 
+**note** | **str** |  | [optional] 
 
 ## Example
 

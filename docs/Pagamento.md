@@ -1,30 +1,29 @@
 # Pagamento
 
-Pagamento.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | Identificativo univoco. | [optional] 
-**concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
-**modalita_pagamento_id** | **int** | Identificativo univoco di &#x60;ModalitaPagamento&#x60;. | [optional] 
+**id** | **int** |  | [optional] 
+**concurrency_token** | **int** |  | [optional] 
+**modalita_pagamento_id** | **int** |  | [optional] 
 **modalita_pagamento** | [**ModalitaPagamento**](ModalitaPagamento.md) |  | [optional] 
-**spesa_id** | **int** | Identificativo univoco di &#x60;Spesa&#x60;. | [optional] 
+**spesa_id** | **int** |  | [optional] 
 **spesa** | [**Spesa**](Spesa.md) |  | [optional] 
-**risorsa_finanziaria_id** | **int** | Identificativo univoco di &#x60;RisorsaFinanziaria&#x60;. | [optional] 
+**risorsa_finanziaria_id** | **int** |  | [optional] 
 **risorsa_finanziaria** | [**RisorsaFinanziaria**](RisorsaFinanziaria.md) |  | [optional] 
-**nome** | **str** | Nome, o descrizione. | 
-**calcolo_prima_rata** | **str** | Se e come l&#39;IVA e le spese devono essere considerate nel calcolo della prima rata. | [optional] 
-**decorrenza_prima_rata** | **str** | Da quando decorre il pagamento della prima rata. | [optional] 
-**giorni_aggiuntivi** | **int** | Giorni extra da aggiungere ad ogni scadenza. | [optional] 
-**sconto** | **float** | Sconto riconosciuto per l&#39;utilizzo del pagamento (percentuale). | [optional] 
-**inizio_scadenze** | **int** | Periodicità della prima rata. Per le successive, impostare &#x60;Periodicità&#x60;. | [optional] 
-**periodicit** | **int** | Periodicità delle rate successive alla prima. Per la prima rata, impostare &#x60;InizioScadenze&#x60;. Default impostato a 30. | [optional] 
-**fine_mese** | **bool** | Indica se le scadenze devono essere riportate a fine mese. | [optional] 
-**giorni_esatti** | **bool** | Indica se il pagamento è utilizzato nel caso di &#39;Art. 62 prodotti alimentari (giorni esatti)&#39;. | [optional] 
-**rate** | **int** | Numero di rate. | [optional] 
-**note** | **str** | Note. | [optional] 
+**nome** | **str** |  | 
+**calcolo_prima_rata** | **str** |  | [optional] 
+**decorrenza_prima_rata** | **str** |  | [optional] 
+**giorni_aggiuntivi** | **int** |  | [optional] 
+**sconto** | **float** |  | [optional] 
+**inizio_scadenze** | **int** |  | [optional] 
+**periodicit** | **int** |  | [optional] 
+**fine_mese** | **bool** |  | [optional] 
+**giorni_esatti** | **bool** |  | [optional] 
+**rate** | **int** |  | [optional] 
+**note** | **str** |  | [optional] 
 
 ## Example
 

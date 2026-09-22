@@ -1,18 +1,17 @@
 # AnagraficaSedeLegale
 
-Indirizzo principale di un'anagrafica.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**indirizzo** | **str** | Indirizzo (via e numero civico). | 
-**localit** | **str** | Località, solitamente il nome di una città, paese o frazione. | [optional] 
-**cap** | **str** | CAP o codice di zona. | [optional] 
-**provincia** | **str** | Provincia o area geografica. | [optional] 
-**telefono1** | **str** | Numero di telefono principale. | [optional] 
-**telefono2** | **str** | Numero di telefono secondario. | [optional] 
-**fax** | **str** | Numero di fax. | [optional] 
+**indirizzo** | **str** |  | 
+**localit** | **str** |  | [optional] 
+**cap** | **str** |  | [optional] 
+**provincia** | **str** |  | [optional] 
+**telefono1** | **str** |  | [optional] 
+**telefono2** | **str** |  | [optional] 
+**fax** | **str** |  | [optional] 
 
 ## Example
 

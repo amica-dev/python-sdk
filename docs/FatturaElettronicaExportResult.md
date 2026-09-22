@@ -1,15 +1,14 @@
 # FatturaElettronicaExportResult
 
-Esito della chiamata al metodo `XmlExport` di `FatturaElettronicaXmlService`.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**file_name** | **str** | Nome del file. | [optional] 
-**valido** | **bool** | Indica se la fattura elettronica (XML) generata ha superato il test di validazione secondo le specifiche del Sistema di Interscambio (SdI). Se &#x60;false&#x60;, vedi &#x60;Errori&#x60; per l&#39;elenco degli errori di validazione. | [optional] [readonly] 
-**errori** | **List[str]** | Errori di validazione, se presenti. | [optional] 
-**xml** | **str** | Contenuto del file. | [optional] 
+**file_name** | **str** |  | [optional] 
+**valido** | **bool** |  | [optional] [readonly] 
+**errori** | **List[str]** |  | [optional] 
+**xml** | **str** |  | [optional] 
 
 ## Example
 
