@@ -163,4 +163,4 @@ with amica_python_sdk.ApiClient(config) as api_client:
 
 ---
 
-SDK generato automaticamente con [OpenAPI Generator](https://openapi-generator.tech) — API `3.1.0`, SDK `3.1.0`, generator `7.11.0`.
+SDK generato automaticamente con [OpenAPI Generator](https://openapi-generator.tech) — API `3.1.1`, SDK `3.1.1`, generator `7.11.0`.
