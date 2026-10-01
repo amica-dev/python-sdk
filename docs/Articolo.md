@@ -19,8 +19,6 @@ Name | Type | Description | Notes
 **marca** | [**Marca**](Marca.md) |  | [optional] 
 **produttore_id** | **int** |  | [optional] 
 **produttore** | [**Produttore**](Produttore.md) |  | [optional] 
-**reparto_id** | **int** |  | [optional] 
-**reparto** | [**Reparto**](Reparto.md) |  | [optional] 
 **nome** | **str** |  | 
 **codice** | **str** |  | 
 **nome_breve** | **str** |  | [optional] 

@@ -136,7 +136,6 @@ amica_python_sdk/models/progressivo_invio.py
 amica_python_sdk/models/registrazione_contabile.py
 amica_python_sdk/models/registrazione_contabile_riga.py
 amica_python_sdk/models/registrazione_contabile_validation_result.py
-amica_python_sdk/models/reparto.py
 amica_python_sdk/models/reso_import_data.py
 amica_python_sdk/models/ricerca_articolo.py
 amica_python_sdk/models/risorsa_finanziaria.py
@@ -270,7 +269,6 @@ docs/RegistrazioneContabile.md
 docs/RegistrazioneContabileApi.md
 docs/RegistrazioneContabileRiga.md
 docs/RegistrazioneContabileValidationResult.md
-docs/Reparto.md
 docs/ResoImportData.md
 docs/RicercaArticolo.md
 docs/RisorsaFinanziaria.md
@@ -416,7 +414,6 @@ test/test_registrazione_contabile.py
 test/test_registrazione_contabile_api.py
 test/test_registrazione_contabile_riga.py
 test/test_registrazione_contabile_validation_result.py
-test/test_reparto.py
 test/test_reso_import_data.py
 test/test_ricerca_articolo.py
 test/test_risorsa_finanziaria.py
