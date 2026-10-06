@@ -25,6 +25,7 @@ from amica_python_sdk.api.giacenza_api import GiacenzaApi
 from amica_python_sdk.api.giornale_magazzino_api import GiornaleMagazzinoApi
 from amica_python_sdk.api.gruppo_merceologico_api import GruppoMerceologicoApi
 from amica_python_sdk.api.indirizzo_api import IndirizzoApi
+from amica_python_sdk.api.inventario_api import InventarioApi
 from amica_python_sdk.api.listino_api import ListinoApi
 from amica_python_sdk.api.magazzino_api import MagazzinoApi
 from amica_python_sdk.api.marca_api import MarcaApi

@@ -30,6 +30,7 @@ amica_python_sdk/api/giacenza_api.py
 amica_python_sdk/api/giornale_magazzino_api.py
 amica_python_sdk/api/gruppo_merceologico_api.py
 amica_python_sdk/api/indirizzo_api.py
+amica_python_sdk/api/inventario_api.py
 amica_python_sdk/api/listino_api.py
 amica_python_sdk/api/magazzino_api.py
 amica_python_sdk/api/marca_api.py
@@ -99,6 +100,7 @@ amica_python_sdk/models/documento_compute_result.py
 amica_python_sdk/models/documento_compute_result_riepilogo_iva.py
 amica_python_sdk/models/documento_import_data.py
 amica_python_sdk/models/documento_media_file.py
+amica_python_sdk/models/documento_totali.py
 amica_python_sdk/models/fattura_elettronica_export_options.py
 amica_python_sdk/models/fattura_elettronica_export_result.py
 amica_python_sdk/models/fattura_elettronica_import_result.py
@@ -114,6 +116,9 @@ amica_python_sdk/models/giacenza.py
 amica_python_sdk/models/gruppo_merceologico.py
 amica_python_sdk/models/impostazioni_sdi.py
 amica_python_sdk/models/indirizzo.py
+amica_python_sdk/models/inventario.py
+amica_python_sdk/models/inventario_compute_result.py
+amica_python_sdk/models/inventario_riga.py
 amica_python_sdk/models/listino.py
 amica_python_sdk/models/magazzino.py
 amica_python_sdk/models/marca.py
@@ -211,6 +216,7 @@ docs/DocumentoComputeResultRiepilogoIva.md
 docs/DocumentoImportData.md
 docs/DocumentoMediaFile.md
 docs/DocumentoMediaFileApi.md
+docs/DocumentoTotali.md
 docs/FatturaElettronicaExportOptions.md
 docs/FatturaElettronicaExportResult.md
 docs/FatturaElettronicaImportResult.md
@@ -232,6 +238,10 @@ docs/GruppoMerceologicoApi.md
 docs/ImpostazioniSdi.md
 docs/Indirizzo.md
 docs/IndirizzoApi.md
+docs/Inventario.md
+docs/InventarioApi.md
+docs/InventarioComputeResult.md
+docs/InventarioRiga.md
 docs/Listino.md
 docs/ListinoApi.md
 docs/Magazzino.md
@@ -356,6 +366,7 @@ test/test_documento_compute_result_riepilogo_iva.py
 test/test_documento_import_data.py
 test/test_documento_media_file.py
 test/test_documento_media_file_api.py
+test/test_documento_totali.py
 test/test_fattura_elettronica_export_options.py
 test/test_fattura_elettronica_export_result.py
 test/test_fattura_elettronica_import_result.py
@@ -377,6 +388,10 @@ test/test_gruppo_merceologico_api.py
 test/test_impostazioni_sdi.py
 test/test_indirizzo.py
 test/test_indirizzo_api.py
+test/test_inventario.py
+test/test_inventario_api.py
+test/test_inventario_compute_result.py
+test/test_inventario_riga.py
 test/test_listino.py
 test/test_listino_api.py
 test/test_magazzino.py
