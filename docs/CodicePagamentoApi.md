@@ -4,11 +4,11 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**api_vversion_company_id_tabelle_codice_pagamento_get**](CodicePagamentoApi.md#api_vversion_company_id_tabelle_codice_pagamento_get) | **GET** /api/v{version}/{companyId}/tabelle/CodicePagamento | Restituisce il contenuto della tabella come lista di elementi.
+[**codice_pagamento_list**](CodicePagamentoApi.md#codice_pagamento_list) | **GET** /api/v3/{companyId}/tabelle/CodicePagamento | Restituisce il contenuto della tabella come lista di elementi.
 
 
-# **api_vversion_company_id_tabelle_codice_pagamento_get**
-> List[CodicePagamento] api_vversion_company_id_tabelle_codice_pagamento_get(company_id, version)
+# **codice_pagamento_list**
+> List[CodicePagamento] codice_pagamento_list(company_id)
 
 Restituisce il contenuto della tabella come lista di elementi.
 
@@ -49,15 +49,14 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = amica_python_sdk.CodicePagamentoApi(api_client)
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
-    version = 'version_example' # str | 
 
     try:
         # Restituisce il contenuto della tabella come lista di elementi.
-        api_response = api_instance.api_vversion_company_id_tabelle_codice_pagamento_get(company_id, version)
-        print("The response of CodicePagamentoApi->api_vversion_company_id_tabelle_codice_pagamento_get:\n")
+        api_response = api_instance.codice_pagamento_list(company_id)
+        print("The response of CodicePagamentoApi->codice_pagamento_list:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling CodicePagamentoApi->api_vversion_company_id_tabelle_codice_pagamento_get: %s\n" % e)
+        print("Exception when calling CodicePagamentoApi->codice_pagamento_list: %s\n" % e)
 ```
 
 
@@ -68,7 +67,6 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **company_id** | **str**| ID univoco dell&#39;azienda. | 
- **version** | **str**|  | 
 
 ### Return type
 

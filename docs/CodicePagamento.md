@@ -1,12 +1,13 @@
 # CodicePagamento
 
+Tabella \"Codice Pagamento\".
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**codice** | **str** |  | [optional] 
-**descrizione** | **str** |  | [optional] 
+**codice** | **str** | Codice della voce. | [optional] 
+**descrizione** | **str** | Descrizione della voce. | [optional] 
 
 ## Example
 

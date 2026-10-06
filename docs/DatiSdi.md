@@ -1,14 +1,15 @@
 # DatiSdi
 
+Dati del Sistema di interscambio (Sdi).
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**identificativo_sdi** | **str** |  | [optional] 
-**stato_sdi** | **str** |  | [optional] 
-**descrizione_stato_sdi** | **str** |  | [optional] 
-**data_consegna_sdi** | **datetime** |  | [optional] 
+**identificativo_sdi** | **str** | Numero identificativo assegnato dal Sistema di interscambio (Sdi). | [optional] 
+**stato_sdi** | **str** | Stato del Sistema di interscambio. | [optional] 
+**descrizione_stato_sdi** | **str** | Stato del documento così come riportato dal Sistema di interscambio. | [optional] 
+**data_consegna_sdi** | **datetime** | Data di consegna così come riportata dal Sistema di interscambio. | [optional] 
 
 ## Example
 

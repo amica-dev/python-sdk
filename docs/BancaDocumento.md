@@ -1,16 +1,17 @@
 # BancaDocumento
 
+La banca di un documento (fattura).
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**nome** | **str** |  | [optional] 
-**iban** | **str** |  | [optional] 
-**abi** | **str** |  | [optional] 
-**cab** | **str** |  | [optional] 
-**conto_corrente** | **str** |  | [optional] 
-**bic** | **str** |  | [optional] 
+**nome** | **str** | Nome. | [optional] 
+**iban** | **str** | Codice IBAN. | [optional] 
+**abi** | **str** | Codice ABI. | [optional] 
+**cab** | **str** | Codice CAB. | [optional] 
+**conto_corrente** | **str** | Numero di conto corrente. | [optional] 
+**bic** | **str** | Codice BIC. | [optional] 
 
 ## Example
 

@@ -1,16 +1,17 @@
 # CausaleMagazzino
 
+Causale di un movimento di magazzino.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**concurrency_token** | **int** |  | [optional] 
-**nome** | **str** |  | 
-**codice** | **str** |  | 
-**movimento_di_carico** | **bool** |  | [optional] 
-**tipo_causale_magazzino** | **str** |  | [optional] 
+**id** | **int** | Identificativo univoco. | [optional] 
+**concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
+**nome** | **str** | Nome o descrizione. | 
+**codice** | **str** | Codice o identificativo univoco. | 
+**movimento_di_carico** | **bool** | Indica se l&#39;utilizzo causa la creazione di un movimento di carico. | [optional] 
+**tipo_causale_magazzino** | **str** | Tipologia del movimento di magazzino. | [optional] 
 
 ## Example
 

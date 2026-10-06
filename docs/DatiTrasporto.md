@@ -1,20 +1,21 @@
 # DatiTrasporto
 
+Dati di trasporto.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**colli** | **int** |  | [optional] 
-**peso** | **float** |  | [optional] 
-**peso_unit_misura** | **str** |  | [optional] 
-**data_trasporto** | **datetime** |  | [optional] 
-**porto** | **str** |  | [optional] 
-**mezzo_di_trasporto** | **str** |  | [optional] 
-**aspetto_beni** | **str** |  | [optional] 
-**autista_nome** | **str** |  | [optional] 
-**autista_targa** | **str** |  | [optional] 
-**autista_patente** | **str** |  | [optional] 
+**colli** | **int** | Numero di colli che compongono la spedizione. | [optional] 
+**peso** | **float** | Peso totale della spedizione. | [optional] 
+**peso_unit_misura** | **str** | Unità di misura applicata al &#x60;Peso&#x60; (es. \&quot;KG\&quot;). | [optional] 
+**data_trasporto** | **datetime** | Data di inizio del trasporto. | [optional] 
+**porto** | **str** | Porto: assegnato, franco, ecc. | [optional] 
+**mezzo_di_trasporto** | **str** | Mezzo di trasporto. | [optional] 
+**aspetto_beni** | **str** | Aspetto esteriore dei beni trasportati. | [optional] 
+**autista_nome** | **str** | Nome dell&#39;autista. | [optional] 
+**autista_targa** | **str** | Targa del veicolo che effettua il trasporto. | [optional] 
+**autista_patente** | **str** | Numero della patente dell&#39;autista. | [optional] 
 
 ## Example
 

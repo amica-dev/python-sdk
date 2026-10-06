@@ -4,11 +4,11 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**api_vversion_company_id_tabelle_natura_iva_get**](NaturaIvaApi.md#api_vversion_company_id_tabelle_natura_iva_get) | **GET** /api/v{version}/{companyId}/tabelle/NaturaIva | Restituisce il contenuto della tabella come lista di elementi.
+[**natura_iva_list**](NaturaIvaApi.md#natura_iva_list) | **GET** /api/v3/{companyId}/tabelle/NaturaIva | Restituisce il contenuto della tabella come lista di elementi.
 
 
-# **api_vversion_company_id_tabelle_natura_iva_get**
-> List[NaturaIva] api_vversion_company_id_tabelle_natura_iva_get(company_id, version)
+# **natura_iva_list**
+> List[NaturaIva] natura_iva_list(company_id)
 
 Restituisce il contenuto della tabella come lista di elementi.
 
@@ -49,15 +49,14 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = amica_python_sdk.NaturaIvaApi(api_client)
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
-    version = 'version_example' # str | 
 
     try:
         # Restituisce il contenuto della tabella come lista di elementi.
-        api_response = api_instance.api_vversion_company_id_tabelle_natura_iva_get(company_id, version)
-        print("The response of NaturaIvaApi->api_vversion_company_id_tabelle_natura_iva_get:\n")
+        api_response = api_instance.natura_iva_list(company_id)
+        print("The response of NaturaIvaApi->natura_iva_list:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling NaturaIvaApi->api_vversion_company_id_tabelle_natura_iva_get: %s\n" % e)
+        print("Exception when calling NaturaIvaApi->natura_iva_list: %s\n" % e)
 ```
 
 
@@ -68,7 +67,6 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **company_id** | **str**| ID univoco dell&#39;azienda. | 
- **version** | **str**|  | 
 
 ### Return type
 

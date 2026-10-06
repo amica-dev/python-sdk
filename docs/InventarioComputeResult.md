@@ -1,14 +1,15 @@
 # InventarioComputeResult
 
+Restituito dai metodi `Compute` e `Process` di `InventarioService`.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**righe** | [**List[InventarioRiga]**](InventarioRiga.md) |  | [optional] 
-**avvisi** | **List[str]** |  | [optional] 
-**concurrency_token** | **int** |  | [optional] 
-**giacenze_allineabili** | **bool** |  | [optional] 
+**righe** | [**List[InventarioRiga]**](InventarioRiga.md) | Righe dell&#39;inventario elaborato. | [optional] 
+**avvisi** | **List[str]** | Avvisi dell&#39;elaborazione, da mostrare all&#39;utente. | [optional] 
+**concurrency_token** | **int** | Impronta delle righe elaborate. Passata a &#x60;Process&#x60;, impedisce il salvataggio se nel frattempo i dati sono cambiati e l&#39;elaborazione darebbe righe diverse. | [optional] 
+**giacenze_allineabili** | **bool** | Indica se &#x60;Process&#x60; con &#x60;alignStock&#x60; allineerebbe davvero le giacenze: non le allinea se nel magazzino ci sono movimenti successivi alla data dell&#39;inventario. | [optional] 
 **inventario** | [**Inventario**](Inventario.md) |  | [optional] 
 
 ## Example

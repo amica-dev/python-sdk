@@ -1,12 +1,13 @@
 # FatturaElettronicaXmlTemplate
 
+Modello standard di fattura elettronica.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**concurrency_token** | **int** |  | [optional] 
+**id** | **int** | Identificativo univoco. | [optional] 
+**concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
 **soggetto_emittente** | **str** |  | [optional] 
 **id_trasmittente_id_paese** | **str** |  | [optional] 
 **cedente_prestatore_id_paese** | **str** |  | [optional] 

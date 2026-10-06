@@ -1,33 +1,34 @@
 # RegistrazioneContabile
 
+Registrazione contabile.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**concurrency_token** | **int** |  | [optional] 
-**data** | **datetime** |  | [optional] 
-**data_competenza** | **datetime** |  | [optional] 
-**numero** | **int** |  | [optional] 
-**tipo_registrazione** | **str** |  | [optional] 
-**segno_iva** | **str** |  | [optional] 
-**tipo_operazione** | **str** |  | [optional] 
-**registro_iva_id** | **int** |  | [optional] 
-**anagrafica_id** | **int** |  | [optional] 
-**pagamento_id** | **int** |  | [optional] 
-**documento_id** | **int** |  | [optional] 
+**id** | **int** | Identificativo univoco. | [optional] 
+**concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
+**data** | **datetime** | Data della registrazione contabile. | [optional] 
+**data_competenza** | **datetime** | Data di competenza. | [optional] 
+**numero** | **int** | Numero della registrazione contabile. | [optional] 
+**tipo_registrazione** | **str** | Tipo di registrazione. | [optional] 
+**segno_iva** | **str** | Positività o negatività dell&#39;IVA. | [optional] 
+**tipo_operazione** | **str** | Tipo di operazione contabile. | [optional] 
+**registro_iva_id** | **int** | Identificativo univoco di &#x60;RegistroIva&#x60;. | [optional] 
+**anagrafica_id** | **int** | Identificativo univoco di &#x60;Anagrafica&#x60;. | [optional] 
+**pagamento_id** | **int** | Identificativo univoco di &#x60;Pagamento&#x60;. | [optional] 
+**documento_id** | **int** | Identificativo univoco di &#x60;Documento&#x60;. | [optional] 
 **documento** | [**Documento**](Documento.md) |  | [optional] 
-**data_documento** | **datetime** |  | [optional] 
-**documento_numero_parte_testo** | **str** |  | [optional] 
-**documento_numero_parte_numerica** | **int** |  | [optional] 
-**documento_numero** | **str** |  | [optional] 
-**protocollo** | **int** |  | [optional] 
-**descrizione** | **str** |  | [optional] 
-**note** | **str** |  | [optional] 
-**righe** | [**List[RegistrazioneContabileRiga]**](RegistrazioneContabileRiga.md) |  | [optional] 
-**castelletto_iva** | [**List[CastellettoIva]**](CastellettoIva.md) |  | [optional] 
-**scadenze** | [**List[Scadenza]**](Scadenza.md) |  | [optional] 
+**data_documento** | **datetime** | Data del documento di riferimento. | [optional] 
+**documento_numero_parte_testo** | **str** | La parte alfanumerica del numero documento, se presente (es. \&quot;bis\&quot;). | [optional] 
+**documento_numero_parte_numerica** | **int** | La parte numerica del numero documento (es. \&quot;99\&quot;). | [optional] 
+**documento_numero** | **str** | Numero documento completo, es. \&quot;99/bis\&quot;. Il documento deve essere già stato salvato sul backend. | [optional] 
+**protocollo** | **int** | Numero di protocollo. | [optional] 
+**descrizione** | **str** | Descrizione. | [optional] 
+**note** | **str** | Note. | [optional] 
+**righe** | [**List[RegistrazioneContabileRiga]**](RegistrazioneContabileRiga.md) | Righe della registrazione contabile. | [optional] 
+**castelletto_iva** | [**List[CastellettoIva]**](CastellettoIva.md) | Importo IVA da versare. | [optional] 
+**scadenze** | [**List[Scadenza]**](Scadenza.md) | Scadenze. | [optional] 
 
 ## Example
 

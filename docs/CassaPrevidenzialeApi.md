@@ -4,11 +4,11 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**api_vversion_company_id_tabelle_cassa_previdenziale_get**](CassaPrevidenzialeApi.md#api_vversion_company_id_tabelle_cassa_previdenziale_get) | **GET** /api/v{version}/{companyId}/tabelle/CassaPrevidenziale | Restituisce il contenuto della tabella come lista di elementi.
+[**cassa_previdenziale_list**](CassaPrevidenzialeApi.md#cassa_previdenziale_list) | **GET** /api/v3/{companyId}/tabelle/CassaPrevidenziale | Restituisce il contenuto della tabella come lista di elementi.
 
 
-# **api_vversion_company_id_tabelle_cassa_previdenziale_get**
-> List[CassaPrevidenziale] api_vversion_company_id_tabelle_cassa_previdenziale_get(company_id, version)
+# **cassa_previdenziale_list**
+> List[CassaPrevidenziale] cassa_previdenziale_list(company_id)
 
 Restituisce il contenuto della tabella come lista di elementi.
 
@@ -49,15 +49,14 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = amica_python_sdk.CassaPrevidenzialeApi(api_client)
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
-    version = 'version_example' # str | 
 
     try:
         # Restituisce il contenuto della tabella come lista di elementi.
-        api_response = api_instance.api_vversion_company_id_tabelle_cassa_previdenziale_get(company_id, version)
-        print("The response of CassaPrevidenzialeApi->api_vversion_company_id_tabelle_cassa_previdenziale_get:\n")
+        api_response = api_instance.cassa_previdenziale_list(company_id)
+        print("The response of CassaPrevidenzialeApi->cassa_previdenziale_list:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling CassaPrevidenzialeApi->api_vversion_company_id_tabelle_cassa_previdenziale_get: %s\n" % e)
+        print("Exception when calling CassaPrevidenzialeApi->cassa_previdenziale_list: %s\n" % e)
 ```
 
 
@@ -68,7 +67,6 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **company_id** | **str**| ID univoco dell&#39;azienda. | 
- **version** | **str**|  | 
 
 ### Return type
 

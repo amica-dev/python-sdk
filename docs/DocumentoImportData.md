@@ -1,11 +1,12 @@
 # DocumentoImportData
 
+Dati di importazione del documento.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **List[int]** |  | [optional] 
+**id** | **List[int]** | Identificativo del documento da importare. | [optional] 
 
 ## Example
 

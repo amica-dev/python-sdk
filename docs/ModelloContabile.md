@@ -1,21 +1,22 @@
 # ModelloContabile
 
+Modello contabile.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**concurrency_token** | **int** |  | [optional] 
-**codice** | **str** |  | 
-**nome** | **str** |  | 
-**stato** | **bool** |  | [optional] 
-**registro_iva_id** | **int** |  | [optional] 
-**segno_iva** | **str** |  | [optional] 
-**tipo_operazione_contabile** | **str** |  | [optional] 
-**tipo_registrazione_contabile** | **str** |  | [optional] 
-**azione_partita** | **str** |  | [optional] 
-**righe** | [**List[ModelloContabileRiga]**](ModelloContabileRiga.md) |  | [optional] 
+**id** | **int** | Identificativo univoco. | [optional] 
+**concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
+**codice** | **str** | Codice del modello. | 
+**nome** | **str** | Nome. | 
+**stato** | **bool** | Indica se il modello è attivo o meno. | [optional] 
+**registro_iva_id** | **int** | Identificativo univoco di &#x60;RegistroIva&#x60;. | [optional] 
+**segno_iva** | **str** | Positività o negatività dell&#39;IVA. | [optional] 
+**tipo_operazione_contabile** | **str** | Tipo di operazione contabile. | [optional] 
+**tipo_registrazione_contabile** | **str** | Tipo di registrazione contabile. | [optional] 
+**azione_partita** | **str** | Effetto sulla partita aperta. | [optional] 
+**righe** | [**List[ModelloContabileRiga]**](ModelloContabileRiga.md) | Righe del modello contabile. | [optional] 
 
 ## Example
 

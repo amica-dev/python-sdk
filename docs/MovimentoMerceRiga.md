@@ -1,31 +1,32 @@
 # MovimentoMerceRiga
 
+Riga di un movimento di magazzino.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**concurrency_token** | **int** |  | [optional] 
-**movimento_merce_id** | **int** |  | [optional] 
+**id** | **int** | Identificativo univoco. | [optional] 
+**concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
+**movimento_merce_id** | **int** | Identificativo univoco di &#x60;MovimentoMerce&#x60;. | [optional] 
 **movimento_merce** | [**MovimentoMerce**](MovimentoMerce.md) |  | [optional] 
-**articolo_id** | **int** |  | [optional] 
+**articolo_id** | **int** | Identificativo univoco di &#x60;Articolo&#x60;. | [optional] 
 **articolo** | [**Articolo**](Articolo.md) |  | [optional] 
-**listino_id** | **int** |  | [optional] 
-**magazzino_id** | **int** |  | [optional] 
-**prezzo_id** | **int** |  | [optional] 
+**listino_id** | **int** | Identificativo univoco di &#x60;Listino&#x60;. | [optional] 
+**magazzino_id** | **int** | Identificativo univoco di &#x60;Magazzino&#x60;. | [optional] 
+**prezzo_id** | **int** | Identificativo univoco di &#x60;Prezzo&#x60;. | [optional] 
 **prezzo** | [**Prezzo**](Prezzo.md) |  | [optional] 
-**causale_iva_id** | **int** |  | [optional] 
+**causale_iva_id** | **int** | Identificativo univoco di &#x60;CausaleIva&#x60;. | [optional] 
 **causale_iva** | [**CausaleIva**](CausaleIva.md) |  | [optional] 
-**taglia_id** | **int** |  | [optional] 
+**taglia_id** | **int** | Identificativo univoco di &#x60;Taglia&#x60;. | [optional] 
 **taglia** | [**Taglia**](Taglia.md) |  | [optional] 
-**quantit** | **float** |  | [optional] 
-**prezzo_netto** | **float** |  | [optional] 
-**prezzo_ivato** | **float** |  | [optional] 
-**colore** | **str** |  | [optional] 
-**identificativo** | **str** |  | [optional] 
-**identificativo_esteso** | **str** |  | [optional] 
-**data** | **datetime** |  | [optional] 
+**quantit** | **float** | Quantità movimentata. | [optional] 
+**prezzo_netto** | **float** | Prezzo applicato, al netto dell&#39;IVA. | [optional] 
+**prezzo_ivato** | **float** | Prezzo applicato, IVA inclusa. | [optional] 
+**colore** | **str** | Colore. | [optional] 
+**identificativo** | **str** | Numero di serie o altro identificativo del prodotto. | [optional] 
+**identificativo_esteso** | **str** | Identificativo esteso del prodotto. | [optional] 
+**data** | **datetime** | Data di scadenza, produzione, fine garanzia o altro. | [optional] 
 
 ## Example
 

@@ -1,24 +1,25 @@
 # Indirizzo
 
+Indirizzo.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**concurrency_token** | **int** |  | [optional] 
-**anagrafica_id** | **int** |  | [optional] 
-**ragione_sociale1** | **str** |  | [optional] 
-**ragione_sociale2** | **str** |  | [optional] 
-**via** | **str** |  | [optional] 
-**localit** | **str** |  | [optional] 
-**cap** | **str** |  | [optional] 
-**provincia** | **str** |  | [optional] 
-**telefono1** | **str** |  | [optional] 
-**telefono2** | **str** |  | [optional] 
-**fax** | **str** |  | [optional] 
-**email** | **str** |  | [optional] 
-**stato** | **bool** |  | [optional] 
+**id** | **int** | Identificativo univoco. | [optional] 
+**concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
+**anagrafica_id** | **int** | Identificativo univoco di &#x60;Anagrafica&#x60;. | [optional] 
+**ragione_sociale1** | **str** | Ragione sociale, oppure nome e cognome della persona fisica. | [optional] 
+**ragione_sociale2** | **str** | Eventuale seconda riga della ragione sociale. | [optional] 
+**via** | **str** | Indirizzo (via). | [optional] 
+**localit** | **str** | Località. | [optional] 
+**cap** | **str** | CAP o codice di avviamento postale. | [optional] 
+**provincia** | **str** | Provincia, contea o nome dell&#39;area. | [optional] 
+**telefono1** | **str** | Numero di telefono principale. | [optional] 
+**telefono2** | **str** | Numero di telefono secondario. | [optional] 
+**fax** | **str** | Numero di fax. | [optional] 
+**email** | **str** | Indirizzo email. | [optional] 
+**stato** | **bool** | Indica se l&#39;indirizzo è attivo oppure no. | [optional] 
 
 ## Example
 

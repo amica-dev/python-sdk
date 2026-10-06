@@ -1,11 +1,12 @@
 # FatturaElettronicaUploadOptions
 
+Opzioni di caricamento della fattura elettronica.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**file_name** | **str** |  | [optional] 
+**file_name** | **str** | Nome del file XML da caricare. | [optional] 
 
 ## Example
 

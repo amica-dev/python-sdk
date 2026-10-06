@@ -1,11 +1,12 @@
 # FatturaElettronicaExportOptions
 
+Opzioni di esportazione della fattura elettronica.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**documento_id** | **List[int]** |  | [optional] 
+**documento_id** | **List[int]** | Identificativi dei &#x60;Documento&#x60; da esportare. | [optional] 
 
 ## Example
 

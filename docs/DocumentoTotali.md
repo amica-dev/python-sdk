@@ -1,18 +1,19 @@
 # DocumentoTotali
 
+Totali di un gruppo di documenti, calcolati dal server. Le note di credito sono sottratte.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**periodo** | **datetime** |  | [optional] 
-**anagrafica_id** | **int** |  | [optional] 
-**ragione_sociale** | **str** |  | [optional] 
-**documenti** | **int** |  | [optional] 
-**totale_imponibile** | **float** |  | [optional] 
-**totale_esente** | **float** |  | [optional] 
-**totale_imposta** | **float** |  | [optional] 
-**totale_documento** | **float** |  | [optional] 
+**periodo** | **datetime** | Primo giorno del mese o dell&#39;anno del gruppo, se il raggruppamento è per periodo. | [optional] 
+**anagrafica_id** | **int** | Identificativo univoco dell&#39;&#x60;Anagrafica&#x60; del gruppo, se il raggruppamento è per anagrafica. | [optional] 
+**ragione_sociale** | **str** | Ragione sociale dell&#39;&#x60;Anagrafica&#x60; del gruppo, se il raggruppamento è per anagrafica. | [optional] 
+**documenti** | **int** | Numero di documenti del gruppo. | [optional] 
+**totale_imponibile** | **float** | Somma degli imponibili. | [optional] 
+**totale_esente** | **float** | Somma degli importi esenti. | [optional] 
+**totale_imposta** | **float** | Somma delle imposte. | [optional] 
+**totale_documento** | **float** | Somma dei totali documento. | [optional] 
 
 ## Example
 

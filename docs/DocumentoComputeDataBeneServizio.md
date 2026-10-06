@@ -1,13 +1,14 @@
 # DocumentoComputeDataBeneServizio
 
+Metadati della riga di documento.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ritenuta_fiscale** | **bool** |  | [optional] 
-**importo** | **float** |  | [optional] 
-**causale_iva_id** | **int** |  | [optional] 
+**ritenuta_fiscale** | **bool** | Indica se la ritenuta fiscale è applicabile o meno. | [optional] 
+**importo** | **float** | Importo. | [optional] 
+**causale_iva_id** | **int** | Identificativo univoco del codice IVA. | [optional] 
 
 ## Example
 

@@ -4,12 +4,12 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**api_vversion_company_id_situazione_creditodebitomensile_get**](SituazioneApi.md#api_vversion_company_id_situazione_creditodebitomensile_get) | **GET** /api/v{version}/{companyId}/Situazione/creditodebitomensile | Restituisce i saldi mensili di credito e debito dell&#39;azienda.
-[**api_vversion_company_id_situazione_fatturatomensile_get**](SituazioneApi.md#api_vversion_company_id_situazione_fatturatomensile_get) | **GET** /api/v{version}/{companyId}/Situazione/fatturatomensile | Restituisce il fatturato mensile dell&#39;azienda.
+[**situazione_get_credito_debito_mensile**](SituazioneApi.md#situazione_get_credito_debito_mensile) | **GET** /api/v3/{companyId}/Situazione/creditodebitomensile | Restituisce i saldi mensili di credito e debito dell&#39;azienda.
+[**situazione_get_fatturato_mensile**](SituazioneApi.md#situazione_get_fatturato_mensile) | **GET** /api/v3/{companyId}/Situazione/fatturatomensile | Restituisce il fatturato mensile dell&#39;azienda.
 
 
-# **api_vversion_company_id_situazione_creditodebitomensile_get**
-> List[CreditoDebitoMensile] api_vversion_company_id_situazione_creditodebitomensile_get(company_id, version)
+# **situazione_get_credito_debito_mensile**
+> List[CreditoDebitoMensile] situazione_get_credito_debito_mensile(company_id)
 
 Restituisce i saldi mensili di credito e debito dell'azienda.
 
@@ -50,15 +50,14 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = amica_python_sdk.SituazioneApi(api_client)
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
-    version = 'version_example' # str | 
 
     try:
         # Restituisce i saldi mensili di credito e debito dell'azienda.
-        api_response = api_instance.api_vversion_company_id_situazione_creditodebitomensile_get(company_id, version)
-        print("The response of SituazioneApi->api_vversion_company_id_situazione_creditodebitomensile_get:\n")
+        api_response = api_instance.situazione_get_credito_debito_mensile(company_id)
+        print("The response of SituazioneApi->situazione_get_credito_debito_mensile:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling SituazioneApi->api_vversion_company_id_situazione_creditodebitomensile_get: %s\n" % e)
+        print("Exception when calling SituazioneApi->situazione_get_credito_debito_mensile: %s\n" % e)
 ```
 
 
@@ -69,7 +68,6 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **company_id** | **str**| ID univoco dell&#39;azienda. | 
- **version** | **str**|  | 
 
 ### Return type
 
@@ -95,8 +93,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **api_vversion_company_id_situazione_fatturatomensile_get**
-> List[FatturatoMensile] api_vversion_company_id_situazione_fatturatomensile_get(company_id, version)
+# **situazione_get_fatturato_mensile**
+> List[FatturatoMensile] situazione_get_fatturato_mensile(company_id)
 
 Restituisce il fatturato mensile dell'azienda.
 
@@ -137,15 +135,14 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = amica_python_sdk.SituazioneApi(api_client)
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
-    version = 'version_example' # str | 
 
     try:
         # Restituisce il fatturato mensile dell'azienda.
-        api_response = api_instance.api_vversion_company_id_situazione_fatturatomensile_get(company_id, version)
-        print("The response of SituazioneApi->api_vversion_company_id_situazione_fatturatomensile_get:\n")
+        api_response = api_instance.situazione_get_fatturato_mensile(company_id)
+        print("The response of SituazioneApi->situazione_get_fatturato_mensile:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling SituazioneApi->api_vversion_company_id_situazione_fatturatomensile_get: %s\n" % e)
+        print("Exception when calling SituazioneApi->situazione_get_fatturato_mensile: %s\n" % e)
 ```
 
 
@@ -156,7 +153,6 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **company_id** | **str**| ID univoco dell&#39;azienda. | 
- **version** | **str**|  | 
 
 ### Return type
 

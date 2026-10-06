@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **var_from** | **datetime** |  | [optional] 
 **to** | **datetime** |  | [optional] 
-**classe_documento** | **str** |  | [optional] 
+**classe_documento** | **str** | Classe del documento. | [optional] 
 
 ## Example
 
