@@ -148,7 +148,7 @@ with amica_python_sdk.ApiClient(config) as api_client:
     # Elenco delle aziende disponibili per le credenziali in uso
     aziende = amica_python_sdk.AziendaApi(api_client)
     try:
-        result = aziende.api_vversion_config_azienda_get("3")
+        result = aziende.azienda_list()
         print(result)
     except ApiException as e:
         print(f"Errore nella chiamata all'API: {e}")
