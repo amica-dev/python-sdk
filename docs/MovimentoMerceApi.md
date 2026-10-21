@@ -4,17 +4,114 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**movimento_merce_compute_riga**](MovimentoMerceApi.md#movimento_merce_compute_riga) | **POST** /api/v3/{companyId}/MovimentoMerce/riga/compute | Completa una riga di movimento dopo una modifica e ne calcola prezzi e importi, come il client Windows.
 [**movimento_merce_delete**](MovimentoMerceApi.md#movimento_merce_delete) | **DELETE** /api/v3/{companyId}/MovimentoMerce/{id} | Elimina un elemento.
 [**movimento_merce_distinct**](MovimentoMerceApi.md#movimento_merce_distinct) | **GET** /api/v3/{companyId}/MovimentoMerce/distinct | Restituisce una lista di elementi distinti.
 [**movimento_merce_get**](MovimentoMerceApi.md#movimento_merce_get) | **GET** /api/v3/{companyId}/MovimentoMerce/{id} | Restituisce un elemento.
 [**movimento_merce_list**](MovimentoMerceApi.md#movimento_merce_list) | **GET** /api/v3/{companyId}/MovimentoMerce | Restituisce una lista di elementi.
 [**movimento_merce_new_instance**](MovimentoMerceApi.md#movimento_merce_new_instance) | **GET** /api/v3/{companyId}/MovimentoMerce/new | Restituisce una nuova istanza di un oggetto. Dove necessario, i valori delle proprietà saranno coerenti con lo stato e la logica dell&#39;applicazione (ad es., una nuova istanza di &#x60;Documento&#x60; avrà il &#x60;Numero&#x60; appropriato, basato sui documenti preesistenti di tipo compatibile).
+[**movimento_merce_new_instance_riga**](MovimentoMerceApi.md#movimento_merce_new_instance_riga) | **GET** /api/v3/{companyId}/MovimentoMerce/riga/new | Restituisce una nuova riga di movimento, con magazzino e listino predefiniti delle preferenze.
 [**movimento_merce_post**](MovimentoMerceApi.md#movimento_merce_post) | **POST** /api/v3/{companyId}/MovimentoMerce | Salva un nuovo elemento.
 [**movimento_merce_put**](MovimentoMerceApi.md#movimento_merce_put) | **PUT** /api/v3/{companyId}/MovimentoMerce/{id} | Aggiorna un elemento esistente.
 
 
+# **movimento_merce_compute_riga**
+> MovimentoMerceRigaComputeResult movimento_merce_compute_riga(company_id, idempotency_key=idempotency_key, movimento_merce_riga_compute_data=movimento_merce_riga_compute_data)
+
+Completa una riga di movimento dopo una modifica e ne calcola prezzi e importi, come il client Windows.
+
+Cosa si ricalcola dipende da `modificato`:              - `Articolo`: magazzino (se manca e ce n'è uno solo), listino e causale IVA dalla scheda cliente o, con una   causale di magazzino di carico, fornitore dell'anagrafica; poi la causale IVA dell'articolo o l'unica esistente,   la taglia per gli articoli a taglie e colori e il prezzo da listino. Senza `causaleMagazzinoId`   l'anagrafica non si usa. - `Listino`: il prezzo da listino, anche se il prezzo era stato inserito a mano. Dipende dal calcolo dei prezzi   del listino (a mano, o costo ultimo o medio dell'articolo più il ricarico), al netto dei quattro sconti; se il   listino è a IVA inclusa si scorpora. Se il listino non ha l'articolo i prezzi vanno a zero. - `PrezzoNetto` o `PrezzoIvato`: l'altro prezzo. - `CausaleIva` (o nessun valore): il prezzo che con `ivaEsclusa` non si scrive, con la nuova aliquota. - `Quantità`: solo gli importi.              Gli importi sono sempre quantità per prezzo. I prezzi non si arrotondano. Non si salva niente, e il movimento può non esistere ancora. La riga non si valida: magazzino e articolo possono essere ancora 0.
+
+### Example
+
+* Bearer (JWT) Authentication (bearer):
+* OAuth Authentication (oauth2ClientCredentials):
+* OAuth Authentication (oauth2):
+
+```python
+import amica_python_sdk
+from amica_python_sdk.models.movimento_merce_riga_compute_data import MovimentoMerceRigaComputeData
+from amica_python_sdk.models.movimento_merce_riga_compute_result import MovimentoMerceRigaComputeResult
+from amica_python_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = amica_python_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearer
+configuration = amica_python_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with amica_python_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = amica_python_sdk.MovimentoMerceApi(api_client)
+    company_id = 'company_id_example' # str | ID univoco dell'azienda.
+    idempotency_key = 'idempotency_key_example' # str | Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`. (optional)
+    movimento_merce_riga_compute_data = amica_python_sdk.MovimentoMerceRigaComputeData() # MovimentoMerceRigaComputeData | La riga, i dati della testata e il campo modificato. (optional)
+
+    try:
+        # Completa una riga di movimento dopo una modifica e ne calcola prezzi e importi, come il client Windows.
+        api_response = api_instance.movimento_merce_compute_riga(company_id, idempotency_key=idempotency_key, movimento_merce_riga_compute_data=movimento_merce_riga_compute_data)
+        print("The response of MovimentoMerceApi->movimento_merce_compute_riga:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling MovimentoMerceApi->movimento_merce_compute_riga: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **company_id** | **str**| ID univoco dell&#39;azienda. | 
+ **idempotency_key** | **str**| Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l&#39;operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l&#39;header &#x60;Idempotent-Replayed: true&#x60;. | [optional] 
+ **movimento_merce_riga_compute_data** | [**MovimentoMerceRigaComputeData**](MovimentoMerceRigaComputeData.md)| La riga, i dati della testata e il campo modificato. | [optional] 
+
+### Return type
+
+[**MovimentoMerceRigaComputeResult**](MovimentoMerceRigaComputeResult.md)
+
+### Authorization
+
+[bearer](../README.md#bearer), [oauth2ClientCredentials](../README.md#oauth2ClientCredentials), [oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
+ - **Accept**: application/json, application/problem+json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successo. Restituisce la riga completata e gli importi. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Idempotent-Replayed - Presente e pari a &#x60;true&#x60; quando la risposta è la replica di una richiesta precedente con la stessa Idempotency-Key. <br>  |
+**400** | Bad Request. Articolo, causale IVA o causale di magazzino inesistenti. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Idempotent-Replayed - Presente e pari a &#x60;true&#x60; quando la risposta è la replica di una richiesta precedente con la stessa Idempotency-Key. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  * Idempotent-Replayed - Presente e pari a &#x60;true&#x60; quando la risposta è la replica di una richiesta precedente con la stessa Idempotency-Key. <br>  |
+**409** | Conflitto: una richiesta con la stessa Idempotency-Key è ancora in elaborazione. |  -  |
+**422** | La stessa Idempotency-Key è già stata usata per una richiesta con metodo, URL o corpo diversi. |  -  |
+**401** | Non autenticato: access token mancante, non valido o scaduto. Ottieni un nuovo access token e ripeti la richiesta. La risposta non ha corpo. |  * WWW-Authenticate - Schema di autenticazione richiesto (&#x60;Bearer&#x60;) ed eventuale motivo del rifiuto del token. <br>  |
+**403** | Accesso negato. Le cause possibili:  - il token non possiede lo scope richiesto dall&#39;operazione (risposta senza corpo); - &#x60;code: cloud_not_active&#x60;: l&#39;account lavora con una connessione locale e la Cloud API non espone i suoi dati; - &#x60;code: company_license_not_active&#x60;: la licenza dell&#39;azienda indicata nel percorso è scaduta o non è attiva; le altre aziende con licenza attiva restano accessibili. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **movimento_merce_delete**
-> MovimentoMerce movimento_merce_delete(company_id, id)
+> MovimentoMerce movimento_merce_delete(company_id, id, validation_override=validation_override)
 
 Elimina un elemento.
 
@@ -56,10 +153,11 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
     api_instance = amica_python_sdk.MovimentoMerceApi(api_client)
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     id = 56 # int | ID dell'elemento da eliminare.
+    validation_override = True # bool | Se applicare eventualmente l'override della validazione. (optional)
 
     try:
         # Elimina un elemento.
-        api_response = api_instance.movimento_merce_delete(company_id, id)
+        api_response = api_instance.movimento_merce_delete(company_id, id, validation_override=validation_override)
         print("The response of MovimentoMerceApi->movimento_merce_delete:\n")
         pprint(api_response)
     except Exception as e:
@@ -75,6 +173,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **company_id** | **str**| ID univoco dell&#39;azienda. | 
  **id** | **int**| ID dell&#39;elemento da eliminare. | 
+ **validation_override** | **bool**| Se applicare eventualmente l&#39;override della validazione. | [optional] 
 
 ### Return type
 
@@ -95,7 +194,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successo. Restituisce l&#39;elemento eliminato. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
 **404** | Non trovato. L&#39;elemento non è stato trovato. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
-**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request. Restituisce il motivo dell&#39;errore (per esempio un documento già emesso, che si             cancella solo con &#x60;validationOverride&#x3D;true&#x60;). |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
 **429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 **401** | Non autenticato: access token mancante, non valido o scaduto. Ottieni un nuovo access token e ripeti la richiesta. La risposta non ha corpo. |  * WWW-Authenticate - Schema di autenticazione richiesto (&#x60;Bearer&#x60;) ed eventuale motivo del rifiuto del token. <br>  |
 **403** | Accesso negato. Le cause possibili:  - il token non possiede lo scope richiesto dall&#39;operazione (risposta senza corpo); - &#x60;code: cloud_not_active&#x60;: l&#39;account lavora con una connessione locale e la Cloud API non espone i suoi dati; - &#x60;code: company_license_not_active&#x60;: la licenza dell&#39;azienda indicata nel percorso è scaduta o non è attiva; le altre aziende con licenza attiva restano accessibili. |  -  |
@@ -465,6 +564,93 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | OK |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
 **400** | Bad Request |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
+**401** | Non autenticato: access token mancante, non valido o scaduto. Ottieni un nuovo access token e ripeti la richiesta. La risposta non ha corpo. |  * WWW-Authenticate - Schema di autenticazione richiesto (&#x60;Bearer&#x60;) ed eventuale motivo del rifiuto del token. <br>  |
+**403** | Accesso negato. Le cause possibili:  - il token non possiede lo scope richiesto dall&#39;operazione (risposta senza corpo); - &#x60;code: cloud_not_active&#x60;: l&#39;account lavora con una connessione locale e la Cloud API non espone i suoi dati; - &#x60;code: company_license_not_active&#x60;: la licenza dell&#39;azienda indicata nel percorso è scaduta o non è attiva; le altre aziende con licenza attiva restano accessibili. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **movimento_merce_new_instance_riga**
+> MovimentoMerceRiga movimento_merce_new_instance_riga(company_id)
+
+Restituisce una nuova riga di movimento, con magazzino e listino predefiniti delle preferenze.
+
+Non serve un movimento salvato: `movimentoMerceId` è 0.
+
+### Example
+
+* Bearer (JWT) Authentication (bearer):
+* OAuth Authentication (oauth2ClientCredentials):
+* OAuth Authentication (oauth2):
+
+```python
+import amica_python_sdk
+from amica_python_sdk.models.movimento_merce_riga import MovimentoMerceRiga
+from amica_python_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = amica_python_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearer
+configuration = amica_python_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with amica_python_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = amica_python_sdk.MovimentoMerceApi(api_client)
+    company_id = 'company_id_example' # str | ID univoco dell'azienda.
+
+    try:
+        # Restituisce una nuova riga di movimento, con magazzino e listino predefiniti delle preferenze.
+        api_response = api_instance.movimento_merce_new_instance_riga(company_id)
+        print("The response of MovimentoMerceApi->movimento_merce_new_instance_riga:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling MovimentoMerceApi->movimento_merce_new_instance_riga: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **company_id** | **str**| ID univoco dell&#39;azienda. | 
+
+### Return type
+
+[**MovimentoMerceRiga**](MovimentoMerceRiga.md)
+
+### Authorization
+
+[bearer](../README.md#bearer), [oauth2ClientCredentials](../README.md#oauth2ClientCredentials), [oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, application/problem+json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successo. Restituisce la nuova riga. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
 **429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 **401** | Non autenticato: access token mancante, non valido o scaduto. Ottieni un nuovo access token e ripeti la richiesta. La risposta non ha corpo. |  * WWW-Authenticate - Schema di autenticazione richiesto (&#x60;Bearer&#x60;) ed eventuale motivo del rifiuto del token. <br>  |
 **403** | Accesso negato. Le cause possibili:  - il token non possiede lo scope richiesto dall&#39;operazione (risposta senza corpo); - &#x60;code: cloud_not_active&#x60;: l&#39;account lavora con una connessione locale e la Cloud API non espone i suoi dati; - &#x60;code: company_license_not_active&#x60;: la licenza dell&#39;azienda indicata nel percorso è scaduta o non è attiva; le altre aziende con licenza attiva restano accessibili. |  -  |

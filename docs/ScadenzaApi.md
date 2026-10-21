@@ -7,14 +7,14 @@ Method | HTTP request | Description
 [**scadenza_delete**](ScadenzaApi.md#scadenza_delete) | **DELETE** /api/v3/{companyId}/Scadenza/{id} | Elimina un elemento.
 [**scadenza_distinct**](ScadenzaApi.md#scadenza_distinct) | **GET** /api/v3/{companyId}/Scadenza/distinct | Restituisce una lista di elementi distinti.
 [**scadenza_get**](ScadenzaApi.md#scadenza_get) | **GET** /api/v3/{companyId}/Scadenza/{id} | Restituisce un elemento.
-[**scadenza_list**](ScadenzaApi.md#scadenza_list) | **GET** /api/v3/{companyId}/Scadenza | Restituisce una lista di elementi.
+[**scadenza_list**](ScadenzaApi.md#scadenza_list) | **GET** /api/v3/{companyId}/Scadenza | Restituisce una lista di scadenze, eventualmente solo aperte o solo saldate.
 [**scadenza_new_instance**](ScadenzaApi.md#scadenza_new_instance) | **GET** /api/v3/{companyId}/Scadenza/new | Restituisce una nuova istanza di una scadenza del tipo specificato.
 [**scadenza_post**](ScadenzaApi.md#scadenza_post) | **POST** /api/v3/{companyId}/Scadenza | Salva un nuovo elemento.
 [**scadenza_put**](ScadenzaApi.md#scadenza_put) | **PUT** /api/v3/{companyId}/Scadenza/{id} | Aggiorna un elemento esistente.
 
 
 # **scadenza_delete**
-> Scadenza scadenza_delete(company_id, id)
+> Scadenza scadenza_delete(company_id, id, validation_override=validation_override)
 
 Elimina un elemento.
 
@@ -56,10 +56,11 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
     api_instance = amica_python_sdk.ScadenzaApi(api_client)
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
     id = 56 # int | ID dell'elemento da eliminare.
+    validation_override = True # bool | Se applicare eventualmente l'override della validazione. (optional)
 
     try:
         # Elimina un elemento.
-        api_response = api_instance.scadenza_delete(company_id, id)
+        api_response = api_instance.scadenza_delete(company_id, id, validation_override=validation_override)
         print("The response of ScadenzaApi->scadenza_delete:\n")
         pprint(api_response)
     except Exception as e:
@@ -75,6 +76,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **company_id** | **str**| ID univoco dell&#39;azienda. | 
  **id** | **int**| ID dell&#39;elemento da eliminare. | 
+ **validation_override** | **bool**| Se applicare eventualmente l&#39;override della validazione. | [optional] 
 
 ### Return type
 
@@ -95,7 +97,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successo. Restituisce l&#39;elemento eliminato. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
 **404** | Non trovato. L&#39;elemento non è stato trovato. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
-**400** | Bad Request. Restituisce il motivo dell&#39;errore. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
+**400** | Bad Request. Restituisce il motivo dell&#39;errore (per esempio un documento già emesso, che si             cancella solo con &#x60;validationOverride&#x3D;true&#x60;). |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  |
 **429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  |
 **401** | Non autenticato: access token mancante, non valido o scaduto. Ottieni un nuovo access token e ripeti la richiesta. La risposta non ha corpo. |  * WWW-Authenticate - Schema di autenticazione richiesto (&#x60;Bearer&#x60;) ed eventuale motivo del rifiuto del token. <br>  |
 **403** | Accesso negato. Le cause possibili:  - il token non possiede lo scope richiesto dall&#39;operazione (risposta senza corpo); - &#x60;code: cloud_not_active&#x60;: l&#39;account lavora con una connessione locale e la Cloud API non espone i suoi dati; - &#x60;code: company_license_not_active&#x60;: la licenza dell&#39;azienda indicata nel percorso è scaduta o non è attiva; le altre aziende con licenza attiva restano accessibili. |  -  |
@@ -286,11 +288,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **scadenza_list**
-> List[Scadenza] scadenza_list(company_id, skip=skip, take=take, skip_total_count=skip_total_count, filter=filter, order=order, expand=expand)
+> List[Scadenza] scadenza_list(company_id, stato=stato, skip=skip, take=take, skip_total_count=skip_total_count, filter=filter, order=order, expand=expand)
 
-Restituisce una lista di elementi.
+Restituisce una lista di scadenze, eventualmente solo aperte o solo saldate.
 
- La risposta include due header con informazioni sui risultati.  `X-Read-TotalCount` indica il numero di elementi che soddisfano il filtro impostato nella query;  `X-Read-Count` indica il numero di elementi effettivamente contenuti nella risposta.  I due header possono riportare valori diversi quando i parametri `Take` e `Skip` sono stati usati nelle opzioni di query.
+ La risposta include due header con informazioni sui risultati.  `X-Read-TotalCount` indica il numero di elementi che soddisfano il filtro e lo stato impostati nella query;  `X-Read-Count` indica il numero di elementi effettivamente contenuti nella risposta.  I due header possono riportare valori diversi quando i parametri `Take` e `Skip` sono stati usati nelle opzioni di query.
 
 ### Example
 
@@ -329,6 +331,7 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = amica_python_sdk.ScadenzaApi(api_client)
     company_id = 'company_id_example' # str | ID univoco dell'azienda.
+    stato = 'Aperta' # str | Stato di pagamento: `Aperta` (con un importo ancora da pagare, comprese le parzialmente pagate e quelle pagate in eccesso) o `Saldata`. Senza stato si restituiscono tutte le scadenze. Una scadenza è saldata se l'importo pagato, manualmente o dalla contabilità, coincide con l'importo al centesimo; le scadenze a importo zero non sono né aperte né saldate. (optional)
     skip = 100 # int | Numero di elementi da escludere dall'inizio del risultato. Combinato con `Take`, è utile per la paginazione. (optional)
     take = 25 # int | Numero di elementi da includere nel risultato. Combinato con `Skip`, è utile per la paginazione. (optional)
     skip_total_count = True # bool | Indica se l'header `X-Read-TotalCount` debba essere escluso dalla risposta. Impostare a `true` per prestazioni migliori a scapito dell'accuratezza. Il valore predefinito è `false`. (optional)
@@ -337,8 +340,8 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
     expand = ['Rows'] # List[str] | Elenco separato da virgole di oggetti da espandere. Permette di recuperare gli oggetti correlati in un'unica chiamata. Ad esempio, per includere i beni e servizi associati a ciascun documento si aggiunge `expand=Rows` alla chiamata. (optional)
 
     try:
-        # Restituisce una lista di elementi.
-        api_response = api_instance.scadenza_list(company_id, skip=skip, take=take, skip_total_count=skip_total_count, filter=filter, order=order, expand=expand)
+        # Restituisce una lista di scadenze, eventualmente solo aperte o solo saldate.
+        api_response = api_instance.scadenza_list(company_id, stato=stato, skip=skip, take=take, skip_total_count=skip_total_count, filter=filter, order=order, expand=expand)
         print("The response of ScadenzaApi->scadenza_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -353,6 +356,7 @@ with amica_python_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **company_id** | **str**| ID univoco dell&#39;azienda. | 
+ **stato** | **str**| Stato di pagamento: &#x60;Aperta&#x60; (con un importo ancora da pagare, comprese le parzialmente pagate e quelle pagate in eccesso) o &#x60;Saldata&#x60;. Senza stato si restituiscono tutte le scadenze. Una scadenza è saldata se l&#39;importo pagato, manualmente o dalla contabilità, coincide con l&#39;importo al centesimo; le scadenze a importo zero non sono né aperte né saldate. | [optional] 
  **skip** | **int**| Numero di elementi da escludere dall&#39;inizio del risultato. Combinato con &#x60;Take&#x60;, è utile per la paginazione. | [optional] 
  **take** | **int**| Numero di elementi da includere nel risultato. Combinato con &#x60;Skip&#x60;, è utile per la paginazione. | [optional] 
  **skip_total_count** | **bool**| Indica se l&#39;header &#x60;X-Read-TotalCount&#x60; debba essere escluso dalla risposta. Impostare a &#x60;true&#x60; per prestazioni migliori a scapito dell&#39;accuratezza. Il valore predefinito è &#x60;false&#x60;. | [optional] 

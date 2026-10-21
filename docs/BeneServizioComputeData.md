@@ -12,10 +12,10 @@ Name | Type | Description | Notes
 **quantit** | **float** | Quantità. | [optional] 
 **prezzo** | **float** | Prezzo IVA esclusa. | [optional] 
 **prezzo_ivato** | **float** | Prezzo IVA inclusa. | [optional] 
-**sconto1** | **float** | Primo sconto percentuale, applicato al prezzo del bene o servizio. | [optional] 
-**sconto2** | **float** | Secondo sconto percentuale, applicato dopo l&#39;applicazione di &#x60;Sconto1&#x60; | [optional] 
-**sconto3** | **float** | Terzo sconto percentuale, applicato dopo l&#39;applicazione di &#x60;Sconto2&#x60; | [optional] 
-**sconto4** | **float** | Quarto sconto percentuale, applicato dopo l&#39;applicazione di &#x60;Sconto3&#x60; | [optional] 
+**sconto1** | **float** | Primo sconto percentuale, applicato al prezzo del bene o servizio. Il valore è una frazione: &#x60;0.05&#x60; corrisponde al 5%. | [optional] 
+**sconto2** | **float** | Secondo sconto percentuale, applicato dopo l&#39;applicazione di &#x60;Sconto1&#x60; Il valore è una frazione: &#x60;0.05&#x60; corrisponde al 5%. | [optional] 
+**sconto3** | **float** | Terzo sconto percentuale, applicato dopo l&#39;applicazione di &#x60;Sconto2&#x60; Il valore è una frazione: &#x60;0.05&#x60; corrisponde al 5%. | [optional] 
+**sconto4** | **float** | Quarto sconto percentuale, applicato dopo l&#39;applicazione di &#x60;Sconto3&#x60; Il valore è una frazione: &#x60;0.05&#x60; corrisponde al 5%. | [optional] 
 **sconto_incondizionato** | **float** | Sconto incondizionato, in valuta, applicato al prezzo del bene o servizio. | [optional] 
 
 ## Example

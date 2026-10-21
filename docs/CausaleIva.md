@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **concurrency_token** | **int** | Il token di concorrenza implementa il controllo di concorrenza ottimistica: a ogni operazione di aggiornamento o cancellazione il valore del token sul database viene confrontato con quello sull&#39;entità. Se i valori coincidono, l&#39;operazione viene eseguita; se differiscono, si assume che un altro utente abbia effettuato una scrittura nel frattempo e l&#39;aggiornamento viene rifiutato. | [optional] 
 **codice** | **str** | Codice. | 
 **nome** | **str** | Nome, o descrizione. | 
-**aliquota** | **float** | Aliquota applicabile. | [optional] 
+**aliquota** | **float** | Aliquota applicabile. Il valore è una frazione: &#x60;0.22&#x60; corrisponde al 22%. | [optional] 
 **indeducibilit** | **float** | Quota di indeducibilità. | [optional] 
 **intracomunitaria** | **bool** | Indica se l&#39;IVA è intracomunitaria. | [optional] 
 **non_imponibile** | **bool** | Indica se l&#39;IVA non deve essere considerata nella determinazione dell&#39;imponibile. | [optional] 

@@ -4,6 +4,7 @@
 from amica_python_sdk.api.anagrafica_api import AnagraficaApi
 from amica_python_sdk.api.area_geografica_api import AreaGeograficaApi
 from amica_python_sdk.api.articolo_api import ArticoloApi
+from amica_python_sdk.api.articolo_colore_api import ArticoloColoreApi
 from amica_python_sdk.api.articolo_media_file_api import ArticoloMediaFileApi
 from amica_python_sdk.api.azienda_api import AziendaApi
 from amica_python_sdk.api.bene_servizio_api import BeneServizioApi
