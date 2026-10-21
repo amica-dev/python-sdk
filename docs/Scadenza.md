@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **modalita_pagamento_id** | **int** | Identificativo univoco di &#x60;ModalitaPagamento&#x60;. | [optional] 
 **modalita_pagamento** | [**ModalitaPagamento**](ModalitaPagamento.md) |  | [optional] 
 **pagata_manualmente** | **bool** | Indica se la scadenza è stata impostata manualmente come &#39;pagata&#39;. | [optional] 
-**pagata** | **bool** | Indica se la scadenza è pagata. | [optional] [readonly] 
+**pagata** | **bool** | Indica se la scadenza è pagata: &#x60;ImportoDaPagare&#x60;, arrotondato al centesimo, è zero. | [optional] [readonly] 
 **data** | **datetime** | Data di scadenza. | [optional] 
 **data_pagamento** | **datetime** | Data di pagamento. | [optional] 
 **data_documento** | **datetime** | Data del documento fiscale. | [optional] 
@@ -31,7 +31,7 @@ Name | Type | Description | Notes
 **documento_numero** | **str** | Numero documento, es. \&quot;99/bis\&quot;. Il documento deve essere già salvato sul sistema. | [optional] 
 **tipo_scadenza** | **str** | Tipo di scadenza. | [optional] 
 **importo_pagato** | **float** | L&#39;importo già pagato della scadenza. | [optional] 
-**importo_da_pagare** | **float** | Rimanenza che risulta ancora da pagare. | [optional] [readonly] 
+**importo_da_pagare** | **float** | Rimanenza che risulta ancora da pagare, arrotondata al centesimo come nel client Windows. | [optional] [readonly] 
 
 ## Example
 
