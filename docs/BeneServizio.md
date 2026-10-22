@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **ritenuta_fiscale** | **bool** | Indica se al bene o servizio deve essere applicata una ritenuta fiscale. &#x60;true&#x60; se deve essere applicata, &#x60;false&#x60; altrimenti. | [optional] 
 **posizione** | **int** | Indice di riga all&#39;interno del documento. Questa proprietà è utilizzata solo dal client desktop Amica 20 per Windows e deve essere considerata obsoleta. | [optional] 
 **codice** | **str** | Codice del bene o servizio. | [optional] 
-**descrizione** | **str** | Descrizione. | 
+**descrizione** | **str** | Descrizione. Obbligatoria, tranne che sulle righe di totale per aliquota create dall&#39;importazione dei DDT con &#x60;Totali&#x60;: hanno &#x60;CausaleIvaId&#x60; e &#x60;Importo&#x60; ma niente &#x60;ArticoloId&#x60; né descrizione, e la fattura elettronica usa come loro descrizione il riferimento al DDT che le precede. | [optional] 
 **unit_misura** | **str** | Unità di misura. | [optional] 
 **quantit** | **float** | Quantità movimentata. | [optional] 
 **quantit_evasa** | **float** | Quantità dell&#39;ordine evasa. Questo valore viene aggiornato automaticamente quando viene emessa una fattura o un DDT che contiene un riferimento a un ordine ed è attivo &lt;a href&#x3D;\&quot;https://gestionaleamica.com/Software/GestioneOrdiniPreventivi\&quot;&gt;Ordini e Preventivi&lt;/a&gt;. | [optional] 
