@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**listino_compute**](ListinoApi.md#listino_compute) | **POST** /api/v3/{companyId}/Listino/compute | Esegue una procedura sulle righe di un listino, come il client Windows, senza salvare nulla.
 [**listino_delete**](ListinoApi.md#listino_delete) | **DELETE** /api/v3/{companyId}/Listino/{id} | Elimina un elemento.
 [**listino_get**](ListinoApi.md#listino_get) | **GET** /api/v3/{companyId}/Listino/{id} | Restituisce un elemento.
 [**listino_list**](ListinoApi.md#listino_list) | **GET** /api/v3/{companyId}/Listino | Restituisce una lista di elementi.
@@ -11,6 +12,101 @@ Method | HTTP request | Description
 [**listino_post**](ListinoApi.md#listino_post) | **POST** /api/v3/{companyId}/Listino | Salva un nuovo elemento.
 [**listino_put**](ListinoApi.md#listino_put) | **PUT** /api/v3/{companyId}/Listino/{id} | Aggiorna un elemento esistente.
 
+
+# **listino_compute**
+> ListinoComputeResult listino_compute(company_id, idempotency_key=idempotency_key, listino_compute_data=listino_compute_data)
+
+Esegue una procedura sulle righe di un listino, come il client Windows, senza salvare nulla.
+
+Il listino può essere nuovo o avere modifiche non salvate: le procedure lavorano sulle righe ricevute. Va valorizzato solo il gruppo di parametri della procedura scelta in `procedura`:              - `Aggiungi`: una riga per ogni articolo attivo non ancora nel listino, con il solo articolo e il resto a   zero, prezzo compreso. Gli articoli sono tutti, quelli del produttore, della marca, della categoria o del   gruppo merceologico indicato in `id`, o quelli inseriti dal giorno `dal` in poi. Mai prestazioni. - `Duplica`: le righe articolo del listino `listinoId`, clienti o fornitori, per gli articoli non   ancora presenti, con prezzo, sconti, ricarico e provvigioni. Le righe di prestazione non si copiano. - `ModificaPrezzi`: aumenta o diminuisce il prezzo di ogni riga di una `percentuale`, con il   risultato arrotondato ai decimali dei prezzi unitari delle preferenze, o di un `importo` fisso, senza   arrotondamento. Va indicato uno solo dei due. - `Sconti`: i quattro sconti su ogni riga. - `Provvigioni`: le provvigioni di agente e capo area su ogni riga.              Percentuali, sconti e provvigioni sono frazioni: `0.05` corrisponde al 5%. Le righe nuove hanno Id 0. Per salvare il risultato si invia il listino con `POST` o `PUT`. Il listino non si valida: può essere ancora senza nome.
+
+### Example
+
+* Bearer (JWT) Authentication (bearer):
+* OAuth Authentication (oauth2ClientCredentials):
+* OAuth Authentication (oauth2):
+
+```python
+import amica_python_sdk
+from amica_python_sdk.models.listino_compute_data import ListinoComputeData
+from amica_python_sdk.models.listino_compute_result import ListinoComputeResult
+from amica_python_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = amica_python_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearer
+configuration = amica_python_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with amica_python_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = amica_python_sdk.ListinoApi(api_client)
+    company_id = 'company_id_example' # str | ID univoco dell'azienda.
+    idempotency_key = 'idempotency_key_example' # str | Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l'operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l'header `Idempotent-Replayed: true`. (optional)
+    listino_compute_data = amica_python_sdk.ListinoComputeData() # ListinoComputeData | Il listino aperto con le sue righe attuali, la procedura e i suoi parametri. (optional)
+
+    try:
+        # Esegue una procedura sulle righe di un listino, come il client Windows, senza salvare nulla.
+        api_response = api_instance.listino_compute(company_id, idempotency_key=idempotency_key, listino_compute_data=listino_compute_data)
+        print("The response of ListinoApi->listino_compute:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ListinoApi->listino_compute: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **company_id** | **str**| ID univoco dell&#39;azienda. | 
+ **idempotency_key** | **str**| Chiave di idempotenza (opzionale). Inviando la stessa chiave su un retry si riottiene la risposta della prima richiesta senza rieseguire l&#39;operazione: rende sicuri i retry automatici. Usa un valore univoco per operazione logica (es. un UUID). La risposta replicata riporta l&#39;header &#x60;Idempotent-Replayed: true&#x60;. | [optional] 
+ **listino_compute_data** | [**ListinoComputeData**](ListinoComputeData.md)| Il listino aperto con le sue righe attuali, la procedura e i suoi parametri. | [optional] 
+
+### Return type
+
+[**ListinoComputeResult**](ListinoComputeResult.md)
+
+### Authorization
+
+[bearer](../README.md#bearer), [oauth2ClientCredentials](../README.md#oauth2ClientCredentials), [oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
+ - **Accept**: application/json, application/problem+json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successo. Restituisce il listino con le righe risultanti. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Idempotent-Replayed - Presente e pari a &#x60;true&#x60; quando la risposta è la replica di una richiesta precedente con la stessa Idempotency-Key. <br>  |
+**400** | Bad Request. Mancano i parametri della procedura, o il listino da duplicare non esiste. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Idempotent-Replayed - Presente e pari a &#x60;true&#x60; quando la risposta è la replica di una richiesta precedente con la stessa Idempotency-Key. <br>  |
+**429** | Troppe richieste: superato il limite di rate per il client. |  * RateLimit-Limit - Numero massimo di richieste consentite al client nella finestra corrente. <br>  * RateLimit-Remaining - Richieste ancora disponibili per il client nella finestra corrente. <br>  * RateLimit-Reset - Secondi al rinnovo dei permessi del client. <br>  * RateLimit-Policy - Policy di rate limiting applicata, nel formato &#x60;&lt;limite&gt;;w&#x3D;&lt;finestra in secondi&gt;&#x60;. <br>  * Retry-After - Secondi da attendere prima di inviare una nuova richiesta. <br>  * Idempotent-Replayed - Presente e pari a &#x60;true&#x60; quando la risposta è la replica di una richiesta precedente con la stessa Idempotency-Key. <br>  |
+**409** | Conflitto: una richiesta con la stessa Idempotency-Key è ancora in elaborazione. |  -  |
+**422** | La stessa Idempotency-Key è già stata usata per una richiesta con metodo, URL o corpo diversi. |  -  |
+**401** | Non autenticato: access token mancante, non valido o scaduto. Ottieni un nuovo access token e ripeti la richiesta. La risposta non ha corpo. |  * WWW-Authenticate - Schema di autenticazione richiesto (&#x60;Bearer&#x60;) ed eventuale motivo del rifiuto del token. <br>  |
+**403** | Accesso negato. Le cause possibili:  - il token non possiede lo scope richiesto dall&#39;operazione (risposta senza corpo); - &#x60;code: cloud_not_active&#x60;: l&#39;account lavora con una connessione locale e la Cloud API non espone i suoi dati; - &#x60;code: company_license_not_active&#x60;: la licenza dell&#39;azienda indicata nel percorso è scaduta o non è attiva; le altre aziende con licenza attiva restano accessibili. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **listino_delete**
 > Listino listino_delete(company_id, id, validation_override=validation_override)
