@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "amica_python_sdk"
-version = "3.3.4"
+version = "3.3.5"
 description = "Amica Cloud API"
 authors = ["OpenAPI Generator Community <assistenza@gestionaleamica.com>"]
 license = "NoLicense"
